@@ -249,9 +249,9 @@ GEM
     nio4r (2.7.4)
     nkf (0.2.0)
     no_proxy_fix (0.1.2)
-    nokogiri (1.18.2-arm64-darwin)
+    nokogiri (1.18.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.2-x86_64-linux-gnu)
+    nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
     octokit (8.1.0)
       base64
