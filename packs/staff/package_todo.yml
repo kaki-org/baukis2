@@ -9,64 +9,54 @@
 ".":
   "::AddressFormPresenter":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/views/staff/customers/_home_address_fields.html.erb
     - packs/staff/app/views/staff/customers/_work_address_fields.html.erb
   "::AddressPresenter":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/views/staff/customers/show.html.erb
   "::AdminService":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/config/initializers/configure_staff.rb
   "::ApplicationController":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/controllers/staff/base.rb
   "::ApplicationRecord":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/models/staff_event.rb
     - packs/staff/app/models/staff_member.rb
   "::EmailHolder":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/models/staff_member.rb
   "::FormPresenter":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/views/staff/customers/_form.html.erb
     - packs/staff/app/views/staff/passwords/edit.html.erb
   "::PasswordHolder":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/models/staff_member.rb
   "::PersonalNameHolder":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/models/staff_member.rb
   "::UserFormPresenter":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/presenters/staff_member_form_presenter.rb
