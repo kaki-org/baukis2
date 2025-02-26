@@ -33,5 +33,7 @@ module Baukis2
       g.controller_specs false
       g.view_specs false
     end
+
+    config.app = config_for(:app)
   end
 end
