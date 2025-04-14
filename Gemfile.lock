@@ -292,7 +292,7 @@ GEM
       railties (>= 6.0.0)
       sorbet-runtime
       zeitwerk
-    parallel (1.26.3)
+    parallel (1.27.0)
     parse_packwerk (0.26.0)
       bigdecimal
       sorbet-runtime
