@@ -119,7 +119,7 @@ GEM
     colored2 (3.1.2)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
-    constant_resolver (0.2.0)
+    constant_resolver (0.3.0)
     cork (0.3.0)
       colored2 (~> 3.1)
     crass (1.0.6)
@@ -152,7 +152,7 @@ GEM
       activesupport (>= 3)
     diff-lcs (1.6.1)
     docile (1.4.1)
-    drb (2.2.1)
+    drb (2.2.3)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
@@ -221,7 +221,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
-    loofah (2.24.0)
+    loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -277,12 +277,12 @@ GEM
       railties
     packs-specification (0.0.10)
       sorbet-runtime
-    packwerk (3.2.2)
+    packwerk (3.2.3)
       activesupport (>= 6.0)
       ast
       better_html
       bundler
-      constant_resolver (>= 0.2.0)
+      constant_resolver (>= 0.3)
       parallel
       parser
       prism (>= 0.25.0)
@@ -444,7 +444,7 @@ GEM
     simplecov-lcov (0.8.0)
     simplecov_json_formatter (0.1.4)
     smart_properties (1.17.0)
-    sorbet-runtime (0.5.11954)
+    sorbet-runtime (0.5.12135)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -496,7 +496,7 @@ GEM
     wisper (2.0.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.2)
+    zeitwerk (2.7.3)
 
 PLATFORMS
   arm64-darwin-22
