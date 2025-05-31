@@ -1,72 +1,72 @@
-# Baukis2 Development Guidelines
+# Baukis2 開発ガイドライン
 
-This document provides guidelines and information for developers working on the Baukis2 project.
+このドキュメントは、Baukis2プロジェクトに取り組む開発者向けのガイドラインと情報を提供します。
 
-## Build/Configuration Instructions
+## ビルド/設定手順
 
-### System Requirements
-- Ruby 3.4.2
+### システム要件
+- Ruby 3.4.4
 - PostgreSQL 17
-- [dip](https://github.com/bibendi/dip/tree/v5.0.0#installation) for development environment management
+- 開発環境管理用の [dip](https://github.com/bibendi/dip/tree/v5.0.0#installation)
 
-### Setup Process
-1. Install dip following the instructions at https://github.com/bibendi/dip/tree/v5.0.0#installation
-2. Set up the development environment:
+### セットアッププロセス
+1. https://github.com/bibendi/dip/tree/v5.0.0#installation の手順に従って dip をインストールします
+2. 開発環境をセットアップします：
    ```bash
    dip provision
    dip rails db:migrate
    dip rails db:seed
    ```
-3. Start the server:
+3. サーバーを起動します：
    ```bash
    dip rails s
    ```
 
-### Access URLs
-- Staff interface: http://baukis2.lvh.me:23000/
-- Admin interface: http://baukis2.lvh.me:23000/admin
-- Customer interface: http://lvh.me:23000/mypage
+### アクセスURL
+- スタッフ画面: http://baukis2.lvh.me:23000/
+- 管理者画面: http://baukis2.lvh.me:23000/admin
+- 顧客画面: http://lvh.me:23000/mypage
 
-### Database Reset
-To reset the database and reload seed data:
+### データベースのリセット
+データベースをリセットしてシードデータを再読み込みするには：
 ```bash
 dip rails db:reset
 ```
 
-## Testing Information
+## テスト情報
 
-### Running Tests
-To run all tests:
+### テストの実行
+すべてのテストを実行するには：
 ```bash
 dip rspec
 ```
 
-To run a specific test file:
+特定のテストファイルを実行するには：
 ```bash
 dip rspec path/to/spec_file.rb
 ```
 
-### Test Structure
-The project uses RSpec for testing with the following organization:
-- `spec/` - Main test directory for application-wide tests
-- `packs/*/spec/` - Tests specific to each pack (admin, staff, customer)
+### テスト構造
+このプロジェクトはRSpecをテストに使用しており、以下のような構成になっています：
+- `spec/` - アプリケーション全体のテスト用のメインディレクトリ
+- `packs/*/spec/` - 各パック（admin、staff、customer）に特化したテスト
 
-### Test Types
-- **Unit Tests**: Test individual components (models, presenters, helpers)
-- **Controller Tests**: Test controller actions and responses
-- **Request Tests**: Test API endpoints
-- **System Tests**: End-to-end tests using Capybara with Playwright
+### テストの種類
+- **ユニットテスト**: 個々のコンポーネント（モデル、プレゼンター、ヘルパー）をテスト
+- **コントローラーテスト**: コントローラーのアクションとレスポンスをテスト
+- **リクエストテスト**: APIエンドポイントをテスト
+- **システムテスト**: CapybaraとPlaywrightを使用したエンドツーエンドテスト
 
-### Adding New Tests
-1. Identify the appropriate location for your test:
-   - For pack-specific functionality, add tests to the pack's spec directory
-   - For application-wide functionality, add tests to the main spec directory
-2. Follow the existing patterns for the type of test you're writing
-3. Use FactoryBot for test data generation
-4. Run your tests with `dip rspec path/to/your_spec.rb`
+### 新しいテストの追加
+1. テストに適切な場所を特定します：
+   - パック固有の機能については、そのパックのspecディレクトリにテストを追加
+   - アプリケーション全体の機能については、メインのspecディレクトリにテストを追加
+2. 作成するテストの種類に応じた既存のパターンに従います
+3. テストデータの生成にはFactoryBotを使用します
+4. `dip rspec path/to/your_spec.rb`でテストを実行します
 
-### Example Test
-Here's an example of a simple test for a module:
+### テスト例
+以下はモジュールの簡単なテスト例です：
 
 ```ruby
 # spec/lib/html_builder_spec.rb
@@ -84,41 +84,41 @@ RSpec.describe HtmlBuilder do
       html = test_instance.markup(:div, class: 'test') do |doc|
         doc.text 'Hello, world!'
       end
-      
+
       expect(html).to eq '<div class="test">Hello, world!</div>'
     end
   end
 end
 ```
 
-## Additional Development Information
+## 追加の開発情報
 
-### Code Style
-- The project uses RuboCop for code style enforcement
-- Configuration is in `.rubocop.yml` and `.rubocop_todo.yml`
-- Run RuboCop with `dip rubocop`
+### コードスタイル
+- プロジェクトはコードスタイルの強制にRuboCopを使用しています
+- 設定は`.rubocop.yml`と`.rubocop_todo.yml`にあります
+- RuboCopを実行するには`dip rubocop`を使用します
 
-### Modular Architecture
-- The project uses Packwerk for enforcing modular architecture
-- Code is organized into packs in the `packs/` directory:
-  - `admin/` - Admin interface
-  - `staff/` - Staff interface
-  - `customer/` - Customer interface
-- Each pack has its own models, controllers, views, and tests
-- Be aware of privacy boundaries between packs when writing code
+### モジュラーアーキテクチャ
+- プロジェクトはモジュラーアーキテクチャの強制にPackwerkを使用しています
+- コードは`packs/`ディレクトリ内のパックに整理されています：
+  - `admin/` - 管理者インターフェース
+  - `staff/` - スタッフインターフェース
+  - `customer/` - 顧客インターフェース
+- 各パックには独自のモデル、コントローラー、ビュー、テストがあります
+- コードを書く際はパック間のプライバシー境界に注意してください
 
-### Coverage Reporting
-- SimpleCov is used for code coverage reporting
-- Coverage reports are generated in HTML and LCOV formats
-- Reports are stored in the `coverage/` directory
+### カバレッジレポート
+- コードカバレッジレポートにはSimpleCovが使用されています
+- カバレッジレポートはHTMLとLCOV形式で生成されます
+- レポートは`coverage/`ディレクトリに保存されます
 
-### Debugging
-To inspect database tables:
+### デバッグ
+データベーステーブルを調査するには：
 ```ruby
 dip rails r StaffMember.columns.each { |c| p [c.name, c.type ] }
 ```
 
-To modify data for testing:
+テスト用にデータを変更するには：
 ```ruby
 dip rails r StaffMember.first.update_columns(suspended: true)
 ```
