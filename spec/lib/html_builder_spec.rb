@@ -14,7 +14,7 @@ RSpec.describe HtmlBuilder do
       html = test_instance.markup(:div, class: 'test') do |doc|
         doc.text 'Hello, world!'
       end
-      
+
       expect(html).to eq '<div class="test">Hello, world!</div>'
     end
 
@@ -23,7 +23,7 @@ RSpec.describe HtmlBuilder do
         doc.span 'Hello'
         doc.span 'World'
       end
-      
+
       expect(html).to eq '<span>Hello</span><span>World</span>'
     end
   end
