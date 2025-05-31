@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe '管理者による職員管理' do
   describe 'ログイン前のとき' do
-    include_examples 'a protected admin controller', 'admin/staff_members'
+    it_behaves_like 'a protected admin controller', 'admin/staff_members'
   end
 
   describe 'ログイン後のとき' do
