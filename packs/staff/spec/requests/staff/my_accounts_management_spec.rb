@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe '職員による自分のアカウントの管理(ログイン前)' do
   describe 'ログイン前' do
-    include_examples 'a protected singular staff controller', 'staff/accounts'
+    it_behaves_like 'a protected singular staff controller', 'staff/accounts'
   end
 
   describe 'ログイン後' do
