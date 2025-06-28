@@ -1,73 +1,73 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、このリポジトリのコードを扱う際のClaude Code (claude.ai/code) への指針を提供します。
 
-## Project Overview
+## プロジェクト概要
 
-Baukis2 is a Ruby on Rails customer management system with a packwerk-based modular architecture. It has three distinct interfaces:
-- Staff Interface: `http://baukis2.lvh.me:23000/`
-- Admin Interface: `http://baukis2.lvh.me:23000/admin`
-- Customer Interface: `http://lvh.me:23000/mypage`
+Baukis2は、packwerkベースのモジュラーアーキテクチャを採用したRuby on Rails顧客管理システムです。3つの異なるインターフェースがあります：
+- スタッフインターフェース: `http://baukis2.lvh.me:23000/`
+- 管理者インターフェース: `http://baukis2.lvh.me:23000/admin`
+- 顧客インターフェース: `http://lvh.me:23000/mypage`
 
-## Architecture
+## アーキテクチャ
 
-### Packwerk Structure
-The codebase uses Packwerk to enforce modular boundaries:
-- `/packs/staff/` - Staff functionality
-- `/packs/admin/` - Administrative functionality
-- `/packs/customer/` - Customer-facing functionality
+### Packwerk構造
+コードベースはPackwerkを使用してモジュラーの境界を強制します：
+- `/packs/staff/` - スタッフ機能
+- `/packs/admin/` - 管理機能
+- `/packs/customer/` - 顧客向け機能
 
-Each pack contains its own MVC structure, routes, and tests with enforced dependencies defined in `package.yml`.
+各パックは独自のMVC構造、ルート、テストを含み、`package.yml`で定義された依存関係が強制されます。
 
-### Key Patterns
-- **Form Objects**: Complex validations (e.g., `Staff::LoginForm`)
-- **Presenters**: View logic separation (e.g., `StaffMemberPresenter`)
-- **Service Objects**: Business logic encapsulation (e.g., `Staff::Authenticator`)
-- **Concerns**: Shared functionality (`EmailHolder`, `PasswordHolder`, etc.)
+### 主要パターン
+- **Form Objects**: 複雑なバリデーション（例：`Staff::LoginForm`）
+- **Presenters**: ビューロジックの分離（例：`StaffMemberPresenter`）
+- **Service Objects**: ビジネスロジックのカプセル化（例：`Staff::Authenticator`）
+- **Concerns**: 共有機能（`EmailHolder`、`PasswordHolder`など）
 
-## Development Commands
+## 開発コマンド
 
-### Setup & Server
+### セットアップとサーバー
 ```bash
-dip provision          # Initial setup
-dip rails db:migrate   # Run migrations
-dip rails db:seed      # Seed database
-dip rails s            # Start server
+dip provision          # 初期セットアップ
+dip rails db:migrate   # マイグレーション実行
+dip rails db:seed      # データベースシード
+dip rails s            # サーバー開始
 ```
 
-### Testing
+### テスト
 ```bash
-dip rspec                           # Run all tests
-dip rspec spec/path/to/test_spec.rb # Run specific test
+dip rspec                           # 全テスト実行
+dip rspec spec/path/to/test_spec.rb # 特定のテスト実行
 ```
 
-### Code Quality
+### コード品質
 ```bash
-dip rubocop        # Run linting
-dip rubocop -a     # Auto-fix issues
-dip brakeman       # Security analysis
+dip rubocop        # リンティング実行
+dip rubocop -a     # 問題の自動修正
+dip brakeman       # セキュリティ分析
 ```
 
-### Package Management
+### パッケージ管理
 ```bash
-dip bundle install  # Ruby dependencies
-dip pnpm install    # JavaScript dependencies
-dip pnpm build      # Build JavaScript
+dip bundle install  # Ruby依存関係
+dip pnpm install    # JavaScript依存関係
+dip pnpm build      # JavaScriptビルド
 ```
 
-## Technology Stack
+## 技術スタック
 - Ruby 3.4.4, Rails 8.0.0
 - PostgreSQL 17
 - Stimulus, Turbo Rails, Webpack
-- RSpec with Capybara/Playwright for testing
-- Docker with dip for orchestration
+- テスト用RSpec with Capybara/Playwright
+- オーケストレーション用Docker with dip
 
-## File Organization
-- Pack routes: `/packs/*/config/routes/*.rb`
-- Shared views: `/app/views/shared/`
-- Layouts: `/app/views/layouts/` (separate for each interface)
-- Seeds: `/packs/*/db/seeds/development/`
-- Locales: `/config/locales/` (Japanese default)
+## ファイル構成
+- パックルート: `/packs/*/config/routes/*.rb`
+- 共有ビュー: `/app/views/shared/`
+- レイアウト: `/app/views/layouts/`（各インターフェース別）
+- シード: `/packs/*/db/seeds/development/`
+- ロケール: `/config/locales/`（日本語がデフォルト）
 
-## Testing Structure
-Tests are organized within each pack's `spec/` directory. Uses RSpec, FactoryBot, and system tests with Playwright driver.
+## テスト構造
+テストは各パックの`spec/`ディレクトリ内に配置されます。RSpec、FactoryBot、Playwrightドライバーによるシステムテストを使用します。
