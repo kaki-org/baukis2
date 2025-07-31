@@ -17,5 +17,5 @@
   "scripts": {
     "build": "webpack --config ./config/webpack/webpack.config.js"
   },
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.14.0"
 }
