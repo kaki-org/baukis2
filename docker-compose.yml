@@ -38,7 +38,7 @@ services:
     user: root
     working_dir: /work/app
   db:
-    image: postgres:17.5-alpine
+    image: postgres:17.6-alpine
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
