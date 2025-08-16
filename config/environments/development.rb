@@ -52,6 +52,18 @@ Rails.application.configure do
   # Append comments with runtime information tags to SQL queries in logs.
   config.active_record.query_log_tags_enabled = true
 
+  # Rails 8 development enhancements for Active Record
+  config.active_record.query_log_tags = %i[
+    application
+    controller
+    action
+    job
+    source_location
+  ]
+  config.active_record.query_log_tags_format = :sqlcommenter
+  config.active_record.cache_query_log_tags = true
+  config.active_record.strict_loading_by_default = true
+
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
 

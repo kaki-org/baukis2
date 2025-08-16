@@ -47,7 +47,7 @@
   - データベース接続と Active Record 機能をテスト
   - _要件: 3.1, 3.2_
 
-- [ ] 7. Rails 8 用の Active Record 設定更新
+- [x] 7. Rails 8 用の Active Record 設定更新
 
   - Rails 8 互換性のための Active Record イニシャライザーを確認
   - クエリログとパフォーマンス監視設定を更新
