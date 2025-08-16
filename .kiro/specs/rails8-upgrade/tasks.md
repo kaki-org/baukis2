@@ -7,7 +7,7 @@
   - Rails 8 デフォルトからの設定変更を確認してマージ
   - _要件: 1.2, 1.3_
 
-- [ ] 2. Rails 8 互換性のための Rails binstubs の再生成
+- [-] 2. Rails 8 互換性のための Rails binstubs の再生成
 
   - 現在の Bundler 生成 binstubs を削除
   - `rails app:update:bin`を実行して Rails 8 binstubs を生成
