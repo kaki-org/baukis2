@@ -21,9 +21,9 @@ describe '職員による顧客電話番号管理' do
     click_on '登録'
 
     customer.reload
-    customer = Customer.includes(:personal_phones).find(customer.id)
-    expect(customer.personal_phones.size).to eq(1)
-    expect(customer.personal_phones[0].number).to eq('090-0000-0000')
+    reloaded_customer = Customer.includes(:personal_phones).find(customer.id)
+    expect(reloaded_customer.personal_phones.size).to eq(1)
+    expect(reloaded_customer.personal_phones[0].number).to eq('090-0000-0000')
   end
 
   it '職員が顧客の自宅番号を追加する' do
@@ -35,9 +35,9 @@ describe '職員による顧客電話番号管理' do
     click_on '登録'
 
     customer.reload
-    customer = Customer.includes(home_address: :phones).find(customer.id)
-    expect(customer.home_address.phones.size).to eq(1)
-    expect(customer.home_address.phones[0].number).to eq('03-9999-9999')
+    reloaded_customer = Customer.includes(home_address: :phones).find(customer.id)
+    expect(reloaded_customer.home_address.phones.size).to eq(1)
+    expect(reloaded_customer.home_address.phones[0].number).to eq('03-9999-9999')
   end
 
   it '職員が顧客の勤務先電話番号を追加する' do
@@ -49,8 +49,8 @@ describe '職員による顧客電話番号管理' do
     click_on '登録'
 
     customer.reload
-    customer = Customer.includes(work_address: :phones).find(customer.id)
-    expect(customer.work_address.phones.size).to eq(1)
-    expect(customer.work_address.phones[0].number).to eq('03-9999-8888')
+    reloaded_customer = Customer.includes(work_address: :phones).find(customer.id)
+    expect(reloaded_customer.work_address.phones.size).to eq(1)
+    expect(reloaded_customer.work_address.phones[0].number).to eq('03-9999-8888')
   end
 end
