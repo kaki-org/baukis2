@@ -47,8 +47,9 @@ describe '管理者による職員管理' do
         expect(response).to redirect_to(admin_staff_members_url)
       end
 
-      example '例外 ActionController::ParameterMissing が発生' do
-        expect { post admin_staff_members_url }.to raise_error(ActionController::ParameterMissing, /param is missing or the value is empty: staff_member/)
+      example 'パラメータなしでPOSTするとバリデーションエラー' do
+        post admin_staff_members_url
+        expect(response).to have_http_status(:bad_request)
       end
     end
 

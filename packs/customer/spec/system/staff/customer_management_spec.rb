@@ -88,10 +88,10 @@ describe '職員による顧客管理' do
     click_on '登録'
 
     customer.reload
-    customer = Customer.includes(:home_address, :work_address).find(customer.id)
-    expect(customer.email).to eq('test@example.jp')
-    expect(customer.home_address.postal_code).to eq('9999999')
-    expect(customer.work_address.company_name).to eq('テスト')
+    reloaded_customer = Customer.includes(:home_address, :work_address).find(customer.id)
+    expect(reloaded_customer.email).to eq('test@example.jp')
+    expect(reloaded_customer.home_address.postal_code).to eq('9999999')
+    expect(reloaded_customer.work_address.company_name).to eq('テスト')
   end
 
   it '職員が生年月日と自宅の郵便番号に無効な値を入力する' do
@@ -110,8 +110,10 @@ describe '職員による顧客管理' do
   end
 
   it '職員が勤務先データのない既存顧客に会社名の情報を追加する' do
-    customer.work_address.destroy
-    customer = Customer.includes(:home_address, :work_address).find(customer.id)
+    # work_addressを削除する前に、関連データを事前読み込み
+    customer_with_work_address = Customer.includes(work_address: :phones).find(customer.id)
+    customer_with_work_address.work_address.destroy
+    customer.reload
     click_on '顧客管理'
     first('table.listing').click_on '編集'
 
@@ -122,7 +124,7 @@ describe '職員による顧客管理' do
     click_on '登録'
 
     customer.reload
-    customer = Customer.includes(:home_address, :work_address).find(customer.id)
-    expect(customer.work_address.company_name).to eq('テスト')
+    reloaded_customer = Customer.includes(:home_address, :work_address).find(customer.id)
+    expect(reloaded_customer.work_address.company_name).to eq('テスト')
   end
 end
