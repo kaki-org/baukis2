@@ -21,6 +21,7 @@ describe '職員による顧客電話番号管理' do
     click_on '登録'
 
     customer.reload
+    customer = Customer.includes(:personal_phones).find(customer.id)
     expect(customer.personal_phones.size).to eq(1)
     expect(customer.personal_phones[0].number).to eq('090-0000-0000')
   end
@@ -34,6 +35,7 @@ describe '職員による顧客電話番号管理' do
     click_on '登録'
 
     customer.reload
+    customer = Customer.includes(home_address: :phones).find(customer.id)
     expect(customer.home_address.phones.size).to eq(1)
     expect(customer.home_address.phones[0].number).to eq('03-9999-9999')
   end
@@ -47,6 +49,7 @@ describe '職員による顧客電話番号管理' do
     click_on '登録'
 
     customer.reload
+    customer = Customer.includes(work_address: :phones).find(customer.id)
     expect(customer.work_address.phones.size).to eq(1)
     expect(customer.work_address.phones[0].number).to eq('03-9999-8888')
   end

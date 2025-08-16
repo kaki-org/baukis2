@@ -48,7 +48,7 @@ describe '管理者による職員管理' do
       end
 
       example '例外 ActionController::ParameterMissing が発生' do
-        expect { post admin_staff_members_url }.to raise_error(ActionController::ParameterMissing)
+        expect { post admin_staff_members_url }.to raise_error(ActionController::ParameterMissing, /param is missing or the value is empty: staff_member/)
       end
     end
 
