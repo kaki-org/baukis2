@@ -2,20 +2,27 @@
   "name": "baukis2",
   "private": true,
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@hotwired/turbo-rails": "^8.0.0",
     "@rails/actioncable": "^8.0.0",
     "@rails/activestorage": "^8.0.0",
-    "jquery": "^3.5.1",
-    "turbolinks": "^5.2.0",
-    "webpack": "^5.76.1",
+    "jquery": "^3.7.1",
+    "webpack": "^5.95.0",
     "webpack-cli": "^6.0.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "@playwright/test": "^1.35.1"
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@playwright/test": "^1.35.1",
+    "babel-loader": "^9.2.0"
   },
   "scripts": {
-    "build": "webpack --config ./config/webpack/webpack.config.js"
+    "build": "webpack --config ./config/webpack/webpack.config.js",
+    "build:dev": "webpack --config ./config/webpack/webpack.config.js --mode=development",
+    "build:prod": "webpack --config ./config/webpack/webpack.config.js --mode=production",
+    "watch": "webpack --config ./config/webpack/webpack.config.js --watch"
   },
   "packageManager": "pnpm@10.14.0"
 }
