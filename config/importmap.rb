@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Pin npm packages by running ./bin/importmap
 
 # Rails 8 importmap configuration for modern JavaScript
