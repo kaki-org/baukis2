@@ -154,6 +154,15 @@ Rails.application.configure do
   # Configure Active Record for production performance
   config.active_record.query_log_tags_enabled = true
   config.active_record.query_log_tags = %i[
-    application controller action job
+    application
+    controller
+    action
+    job
+    request_id
+    source_location
   ]
+
+  # Rails 8 production performance optimizations
+  config.active_record.query_log_tags_format = :sqlcommenter
+  config.active_record.strict_loading_by_default = false
 end
