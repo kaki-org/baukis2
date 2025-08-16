@@ -1,0 +1,12 @@
+default: &default
+  customer_class: Customer
+  address_class: Address
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

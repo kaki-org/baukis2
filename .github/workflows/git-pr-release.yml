@@ -9,14 +9,14 @@ jobs:
   create-release-pr:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
     - name: Set up Ruby 3.3
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.3.5
+        ruby-version: .tool-versions
 
     - name: Set timezone to JST
       run: sudo timedatectl set-timezone Asia/Tokyo

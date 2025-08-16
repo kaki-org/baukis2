@@ -1,6 +1,7 @@
 name: Monthly Branch and PR Creation
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 0 1 * *'  # 毎月1日の0時0分実行
 
@@ -13,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: master
           fetch-depth: 0
@@ -26,24 +27,19 @@ jobs:
       - name: Create new branch
         id: create-branch
         run: |
-          BRANCH_NAME=$(date +'%Y%m%d')_master
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
+          BRANCH_NAME="$(date +'%Y%m%d')_master"
+          echo "branch_name=${BRANCH_NAME}" >> "${GITHUB_OUTPUT}"
           git checkout master
           git fetch origin
           git pull origin master
-          git switch -c $BRANCH_NAME
-          git push origin $BRANCH_NAME
+          git switch -c "${BRANCH_NAME}"
+          git push origin "${BRANCH_NAME}"
 
       - name: Create pull request
         run: |
-          gh pr create --base develop --head $BRANCH_NAME --title "$BRANCH_NAME to develop" --body "Automated PR from $BRANCH_NAME to develop"
+          gh pr create --base develop --head "${BRANCH_NAME}" --title "${BRANCH_NAME} to develop" \
+          --body "Automated PR from ${BRANCH_NAME} to develop \
+          https://github.com/${{ github.repository }}/compare/master...${BRANCH_NAME}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: ${{ env.branch_name }}
-        # uses: peter-evans/create-pull-request@v7
-        # with:
-        #   token: ${{ secrets.GITHUB_TOKEN }}
-        #   base: develop
-        #   branch: ${{ env.branch_name }}
-        #   title: ${{ env.branch_name }} to develop
-        #   body: 'Automated PR from ${{ env.branch_name }} to develop'
+          BRANCH_NAME: ${{ steps.create-branch.outputs.branch_name }}

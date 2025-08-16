@@ -1,6 +1,6 @@
 # ビルド用コンテナ
 ARG IMAGE_FILE
-FROM $IMAGE_FILE:3.3.5-alpine3.20 AS builder
+FROM $IMAGE_FILE:3.3.6-alpine3.20 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -33,7 +33,7 @@ RUN rm -rf /usr/local/bundle/cache/*
 # mainコンテナ
 #    ${BROWSER} \
 
-FROM ${IMAGE_FILE}:3.3.5-alpine3.20
+FROM ${IMAGE_FILE}:3.3.6-alpine3.20
 RUN apk --no-cache add \
     build-base \
     bash \

@@ -13,10 +13,10 @@ jobs:
       BUNDLE_ONLY: test
       RAILS_ENV: test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.5
+          ruby-version: .tool-versions
           bundler-cache: true
       - name: Run erblint
         run: bundle exec erblint --lint-all

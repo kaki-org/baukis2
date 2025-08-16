@@ -1,0 +1,20 @@
+name: actionlint
+on:
+  pull_request:
+    paths: ['.github/workflows/*.yml', '.github/workflows/*.yaml']
+# bash --noprofile --norc -eo pipefaile {0}を全ステップに適用
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    # 5分間のタイムアウトを設定
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - run: |
+          docker run --rm -v "$(pwd):$(pwd)" -w "$(pwd)" rhysd/actionlint:latest
