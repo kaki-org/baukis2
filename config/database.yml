@@ -1,4 +1,4 @@
-# PostgreSQL. Versions 9.3 and up are supported.
+# PostgreSQL. Versions 12 and up are supported.
 #
 # Install the pg driver:
 #   gem install pg
@@ -20,15 +20,40 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
   host: <%= ENV['PGSQL_HOST'] || 'db' %>
   port: <%= ENV['PGSQL_PORT'] || '5432' %>
   username: postgres
   password: <%= ENV['POSTGRES_PASSWORD'] %>
+  
+  # Rails 8 performance optimizations
+  prepared_statements: true
+  advisory_locks: true
+  
+  # Rails 8 connection pool optimizations
+  checkout_timeout: 5
+  reaping_frequency: 10
+  
+  # Rails 8 query optimizations
+  query_cache: true
+  
+  # Rails 8 connection management
+  idle_timeout: 300
+  
+  # Rails 8 statement timeout for better performance
+  statement_timeout: 30000
 
 development:
   <<: *default
   database: baukis2_development
-
+  
+  # Rails 8 development optimizations
+  # Enable query logging for development debugging
+  min_messages: notice
+  
+  # Development-specific connection pool settings
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -50,18 +75,24 @@ development:
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
 
-  # Minimum log levels, in increasing order:
-  #   debug5, debug4, debug3, debug2, debug1,
-  #   log, notice, warning, error, fatal, and panic
-  # Defaults to warning.
-  #min_messages: notice
-
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
   database: baukis2_test
+  
+  # Rails 8 test environment optimizations
+  # Faster test database connections
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+  
+  # Reduced timeouts for faster test execution
+  timeout: 1000
+  checkout_timeout: 2
+  
+  # Test-specific optimizations
+  prepared_statements: false  # Disable for test isolation
+  query_cache: false         # Disable for test consistency
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -87,3 +118,19 @@ production:
   database: baukis2_production
   username: baukis2
   password: <%= ENV['BAUKIS2_DATABASE_PASSWORD'] %>
+  
+  # Rails 8 production optimizations
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
+  timeout: 10000
+  
+  # Production-specific connection management
+  checkout_timeout: 10
+  reaping_frequency: 5
+  
+  # Production performance optimizations
+  query_cache: true
+  prepared_statements: true
+  
+  # Production connection limits
+  idle_timeout: 600
+  statement_timeout: 60000
