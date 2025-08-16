@@ -15,7 +15,7 @@
   - すべての binstubs が正しく動作することをテスト
   - _要件: 1.1, 4.3_
 
-- [-] 3. Rails 8 用の開発環境設定更新
+- [x] 3. Rails 8 用の開発環境設定更新
 
   - `config/environments/development.rb`を Rails 8 デフォルトと照合して確認
   - Rails 8 用のアセットパイプライン設定を更新
