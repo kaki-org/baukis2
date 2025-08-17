@@ -12,7 +12,7 @@ Rails.application.config.assets.version = '1.0'
 # Add webpack builds directory to asset paths for Rails 8 compatibility
 Rails.application.config.assets.paths << Rails.root.join('app/assets/builds')
 
-# Precompile additional assets for pack-based architecture
+# Rails 8 対応: パックベースアーキテクチャ用の追加アセットをプリコンパイル
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 Rails.application.config.assets.precompile += %w[
@@ -20,6 +20,13 @@ Rails.application.config.assets.precompile += %w[
   staff.js staff.css
   customer.js customer.css
   application.js
+]
+
+# Rails 8 対応: SCSS ファイルのプリコンパイル設定
+Rails.application.config.assets.precompile += %w[
+  admin.scss
+  staff.scss
+  customer.scss
 ]
 
 # Rails 8 performance optimization for asset pipeline
