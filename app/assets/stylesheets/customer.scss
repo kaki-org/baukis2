@@ -1,0 +1,8 @@
+// Rails 8 対応: Customer パック用 SCSS エントリーポイント
+// 共有スタイルとcustomer固有スタイルをインポート
+
+@import "shared/errors";
+@import "customer/colors";
+@import "customer/dimensions";
+@import "customer/layout";
+@import "customer/container";

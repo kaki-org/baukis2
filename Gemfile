@@ -13,7 +13,6 @@ gem 'puma', '~> 6.4'
 gem 'rails', '~> 8.0.0'
 gem 'sassc-rails'
 gem 'stimulus-rails'
-gem 'turbolinks', '~> 5'
 gem 'turbo-rails'
 
 gem 'packs-rails'

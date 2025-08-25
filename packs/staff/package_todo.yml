@@ -62,15 +62,18 @@
     - packs/staff/app/presenters/staff_member_form_presenter.rb
     - packs/staff/app/views/staff/accounts/_form.html.erb
 packs/customer:
+  "::Customer":
+    violations:
+    - privacy
+    files:
+    - packs/staff/spec/system/staff/phone_management_spec.rb
   "::CustomerFormPresenter":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/views/staff/customers/_customer_fields.html.erb
   "::CustomerPresenter":
     violations:
-    - dependency
     - privacy
     files:
     - packs/staff/app/views/staff/customers/index.html.erb

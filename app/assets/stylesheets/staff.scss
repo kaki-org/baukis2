@@ -1,0 +1,13 @@
+// Rails 8 対応: Staff パック用 SCSS エントリーポイント
+// 共有スタイルとstaff固有スタイルをインポート
+
+@import "shared/errors";
+@import "staff/colors";
+@import "staff/dimensions";
+@import "staff/layout";
+@import "staff/container";
+@import "staff/form";
+@import "staff/flash";
+@import "staff/sessions";
+@import "staff/tables";
+@import "staff/pagination";

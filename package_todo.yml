@@ -1,0 +1,25 @@
+# This file contains a list of dependencies that are not part of the long term plan for the
+# '.' package.
+# We should generally work to reduce this list over time.
+#
+# You can regenerate this file using the following command:
+#
+# bin/packwerk update-todo
+---
+packs/customer:
+  "::Address":
+    violations:
+    - privacy
+    files:
+    - spec/presenters/address_presenter_spec.rb
+    - spec/presenters/address_presenter_test_spec.rb
+  "::Customer":
+    violations:
+    - privacy
+    files:
+    - spec/packwerk/rails8_compatibility_spec.rb
+  "::Phone":
+    violations:
+    - privacy
+    files:
+    - spec/presenters/address_presenter_spec.rb
