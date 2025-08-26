@@ -71,6 +71,13 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
 
+      - name: Precompile assets
+        run: |
+          pnpm build
+          bundle exec rake assets:precompile
+        env:
+          RAILS_ENV: test
+
       - name: Run RSpec
         run: bundle exec rspec
         env:
@@ -78,7 +85,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
       - name: Codecov
-        uses: codecov/codecov-action@v5.4.3
+        uses: codecov/codecov-action@v5.5.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: coverage # このディレクトリに、テスティングツールによるカバレッジレポートファイルが出力される想定

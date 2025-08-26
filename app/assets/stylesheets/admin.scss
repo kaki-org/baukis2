@@ -1,0 +1,13 @@
+// Rails 8 対応: Admin パック用 SCSS エントリーポイント
+// 共有スタイルとadmin固有スタイルをインポート
+
+@import "shared/errors";
+@import "admin/colors";
+@import "admin/dimensions";
+@import "admin/layout";
+@import "admin/container";
+@import "admin/form";
+@import "admin/flash";
+@import "admin/sessions";
+@import "admin/tables";
+@import "admin/pagination";

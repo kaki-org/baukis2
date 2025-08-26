@@ -11,6 +11,13 @@ module Staff
     def initialize(customer = nil)
       @customer = customer
       @customer ||= StaffService.customer.new(gender: 'male')
+
+      # strict_loadingを回避するため、関連データを事前に読み込む
+      if @customer.persisted?
+        @customer = StaffService.customer.includes(:home_address, :work_address, :personal_phones,
+                                                   home_address: :phones, work_address: :phones).find(@customer.id)
+      end
+
       (2 - @customer.personal_phones.size).times do
         @customer.personal_phones.build
       end
