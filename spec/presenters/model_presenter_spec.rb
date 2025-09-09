@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ModelPresenter do
   let(:view_context) { instance_double(ActionView::Base) }
-  let(:model) { instance_double('StaffMember') }
+  let(:model) { double('Model') } # rubocop:disable RSpec/VerifiedDoubles
   let(:presenter) { described_class.new(model, view_context) }
 
   describe '#created_at' do
