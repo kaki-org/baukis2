@@ -85,9 +85,12 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-      - name: Show lcov file content
+      - name: Fix lcov file paths and show content
         if: always()
-        run: cat coverage/lcov.info
+        run: |
+          sed -i 's|SF:./|SF:|g' coverage/lcov.info
+          echo "--- Fixed lcov.info content ---"
+          cat coverage/lcov.info
       - name: Codecov
         uses: codecov/codecov-action@v5.5.0
         with:
