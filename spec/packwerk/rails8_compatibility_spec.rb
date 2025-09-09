@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'English'
 require 'rails_helper'
 
 RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
@@ -71,7 +72,7 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
     it 'packwerk check が違反なしを報告する' do
       # packwerk check を実行して、違反がないことを確認
       output = `bundle exec packwerk check 2>&1`
-      expect($?.exitstatus).to eq(0) # 違反がないため 0 を返す
+      expect($CHILD_STATUS.exitstatus).to eq(0) # 違反がないため 0 を返す
       expect(output).to include('No offenses detected')
     end
   end
