@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-StaffMember.create!(
-  email: 'taro@example.com',
-  family_name: '山田',
-  given_name: '太郎',
-  family_name_kana: 'ヤマダ',
-  given_name_kana: 'タロウ',
-  password: 'password',
-  start_date: Time.zone.today
-)
+StaffMember.find_or_create_by!(email: 'taro@example.com') do |staff|
+  staff.assign_attributes(
+    family_name: '山田',
+    given_name: '太郎',
+    family_name_kana: 'ヤマダ',
+    given_name_kana: 'タロウ',
+    password: 'password',
+    start_date: Time.zone.today
+  )
+end
 
 family_names = %w[
   佐藤:サトウ:sato
@@ -29,15 +30,16 @@ given_names = %w[
   fn = family_names[n % 4].split(':')
   gn = given_names[n % 5].split(':')
 
-  StaffMember.create!(
-    email: "#{fn[2]}.#{gn[2]}@example.com",
-    family_name: fn[0],
-    given_name: gn[0],
-    family_name_kana: fn[1],
-    given_name_kana: gn[1],
-    password: 'password',
-    start_date: (100 - n).days.ago.to_date,
-    end_date: n.zero? ? Time.zone.today : nil,
-    suspended: n == 1
-  )
+  StaffMember.find_or_create_by!(email: "#{fn[2]}.#{gn[2]}@example.com") do |staff|
+    staff.assign_attributes(
+      family_name: fn[0],
+      given_name: gn[0],
+      family_name_kana: fn[1],
+      given_name_kana: gn[1],
+      password: 'password',
+      start_date: (100 - n).days.ago.to_date,
+      end_date: n.zero? ? Time.zone.today : nil,
+      suspended: n == 1
+    )
+  end
 end
