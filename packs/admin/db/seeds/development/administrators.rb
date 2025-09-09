@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-Administrator.create!(
-  email: 'hanako@example.com',
-  password: 'password'
-)
+Administrator.find_or_create_by!(email: 'admin@example.com') do |admin|
+  admin.password = 'password'
+end
