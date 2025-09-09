@@ -95,5 +95,5 @@ jobs:
         uses: codecov/codecov-action@v5.5.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: coverage # このディレクトリに、テスティングツールによるカバレッジレポートファイルが出力される想定
+          files: coverage/lcov.info
           verbose: true
