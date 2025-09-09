@@ -25,7 +25,7 @@ describe 'Staff::CustomersController' do
     end
 
     it '存在しない顧客IDの場合404エラーを返す' do
-      get staff_customer_path(999999)
+      get staff_customer_path(999_999)
       expect(response).to have_http_status(:not_found)
     end
   end
@@ -33,7 +33,7 @@ describe 'Staff::CustomersController' do
   describe 'DELETE /customers/:id' do
     it '顧客を削除し、顧客一覧にリダイレクトする' do
       customer_to_delete = create(:customer)
-      
+
       expect do
         delete staff_customer_path(customer_to_delete)
       end.to change(StaffService.customer, :count).by(-1)
@@ -43,7 +43,7 @@ describe 'Staff::CustomersController' do
     end
 
     it '存在しない顧客IDの場合404エラーを返す' do
-      delete staff_customer_path(999999)
+      delete staff_customer_path(999_999)
       expect(response).to have_http_status(:not_found)
     end
 
