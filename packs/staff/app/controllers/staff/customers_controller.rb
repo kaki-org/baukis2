@@ -55,7 +55,7 @@ module Staff
 
     def destroy
       customer = StaffService.customer.includes(
-        :home_address, :work_address, :personal_phones,
+        :home_address, :work_address, :personal_phones, :phones,
         home_address: :phones, work_address: :phones
       ).find(params[:id])
       customer.destroy!
