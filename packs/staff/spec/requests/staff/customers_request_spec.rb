@@ -36,7 +36,7 @@ describe 'Staff::CustomersController' do
       
       expect do
         delete staff_customer_path(customer_to_delete)
-      end.to change(Customer, :count).by(-1)
+      end.to change(StaffService.customer, :count).by(-1)
 
       expect(response).to redirect_to(staff_customers_path)
       expect(flash[:notice]).to eq('顧客アカウントを削除しました。')
@@ -52,7 +52,7 @@ describe 'Staff::CustomersController' do
 
       expect do
         delete staff_customer_path(customer_with_addresses)
-      end.to change(Customer, :count).by(-1)
+      end.to change(StaffService.customer, :count).by(-1)
 
       expect(response).to redirect_to(staff_customers_path)
     end
