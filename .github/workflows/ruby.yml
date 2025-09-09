@@ -90,3 +90,4 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: coverage # このディレクトリに、テスティングツールによるカバレッジレポートファイルが出力される想定
+          verbose: true
