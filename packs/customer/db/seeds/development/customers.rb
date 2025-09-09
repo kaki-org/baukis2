@@ -35,34 +35,35 @@ company_names = %w[OIAX ABC XYZ]
     fn = family_names[n].split(':')
     gn = given_names[m].split(':')
 
-    c = Customer.create!(
-      email: "#{fn[2]}.#{gn[2]}@example.jp",
-      family_name: fn[0],
-      given_name: gn[0],
-      family_name_kana: fn[1],
-      given_name_kana: gn[1],
-      password: 'password',
-      birthday: 60.years.ago.advance(seconds: rand(40.years)).to_date,
-      gender: m < 5 ? 'male' : 'female'
-    )
-    c.personal_phones.create!(number: format('090-0000-%04d', (n * 10) + m)) if m.even?
-    c.create_home_address!(
-      postal_code: format('%07d', rand(10_000_000)),
-      prefecture: Address::PREFECTURE_NAMES.sample,
-      city: city_names.sample,
-      address1: '開発1-2-3',
-      address2: 'レイルズハイツ301号室'
-    )
-    c.home_address.phones.create!(number: format('03-0000-%04d', n)) if (m % 10).zero?
-    next unless (m % 3).zero?
-
-    c.create_work_address!(
-      postal_code: format('%07d', rand(10_000_000)),
-      prefecture: Address::PREFECTURE_NAMES.sample,
-      city: city_names.sample,
-      address1: '試験4-5-6',
-      address2: 'ルビービル2F',
-      company_name: company_names.sample
-    )
+    Customer.find_or_create_by!(email: "#{fn[2]}.#{gn[2]}@example.jp") do |c|
+      c.assign_attributes(
+        family_name: fn[0],
+        given_name: gn[0],
+        family_name_kana: fn[1],
+        given_name_kana: gn[1],
+        password: 'password',
+        birthday: 60.years.ago.advance(seconds: rand(40.years)).to_date,
+        gender: m < 5 ? 'male' : 'female'
+      )
+      c.personal_phones.build(number: format('090-0000-%04d', (n * 10) + m)) if m.even?
+      home_address = c.build_home_address(
+        postal_code: format('%07d', rand(10_000_000)),
+        prefecture: Address::PREFECTURE_NAMES.sample,
+        city: city_names.sample,
+        address1: '開発1-2-3',
+        address2: 'レイルズハイツ301号室'
+      )
+      home_address.phones.build(number: format('03-0000-%04d', n)) if (m % 10).zero?
+      if (m % 3).zero?
+        c.build_work_address(
+          postal_code: format('%07d', rand(10_000_000)),
+          prefecture: Address::PREFECTURE_NAMES.sample,
+          city: city_names.sample,
+          address1: '試験4-5-6',
+          address2: 'ルビービル2F',
+          company_name: company_names.sample
+        )
+      end
+    end
   end
 end
