@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 staff_members = StaffMember.all
+return if staff_members.empty?
 
 256.times do |n|
   m = staff_members.sample
