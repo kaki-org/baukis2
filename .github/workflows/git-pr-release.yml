@@ -9,24 +9,15 @@ jobs:
   create-release-pr:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-    - name: Set up Ruby 3.3
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: .tool-versions
-
-    - name: Set timezone to JST
-      run: sudo timedatectl set-timezone Asia/Tokyo
-
-    - name: Create a release pull request
-      env:
-        GIT_PR_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GIT_PR_RELEASE_BRANCH_PRODUCTION: master
-        GIT_PR_RELEASE_BRANCH_STAGING: develop
-        GIT_PR_RELEASE_LABELS: release
-      run: |
-        gem install -N git-pr-release -v "2.2.0"
-        git-pr-release --no-fetch
+      - name: git-pr-release
+        uses: bakunyo/git-pr-release-action@master
+        env:
+          GIT_PR_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_PR_RELEASE_BRANCH_PRODUCTION: main
+          GIT_PR_RELEASE_BRANCH_STAGING: develop
+          GIT_PR_RELEASE_LABELS: release
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
