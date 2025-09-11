@@ -7,7 +7,10 @@ module Staff
     end
 
     def show
-      @customer = StaffService.customer.find(params[:id])
+      @customer = StaffService.customer.includes(
+        :home_address, :work_address, :personal_phones,
+        home_address: :phones, work_address: :phones
+      ).find(params[:id])
     end
 
     def new
@@ -15,7 +18,10 @@ module Staff
     end
 
     def edit
-      customer = StaffService.customer.find(params[:id])
+      customer = StaffService.customer.includes(
+        :home_address, :work_address, :personal_phones,
+        home_address: :phones, work_address: :phones
+      ).find(params[:id])
       @customer_form = Staff::CustomerForm.new(customer)
     end
 
@@ -32,7 +38,10 @@ module Staff
     end
 
     def update
-      customer = StaffService.customer.find(params[:id])
+      customer = StaffService.customer.includes(
+        :home_address, :work_address, :personal_phones,
+        home_address: :phones, work_address: :phones
+      ).find(params[:id])
       @customer_form = Staff::CustomerForm.new(customer)
       @customer_form.assign_attributes(params[:form])
       if @customer_form.save
@@ -45,7 +54,10 @@ module Staff
     end
 
     def destroy
-      customer = StaffService.customer.find(params[:id])
+      customer = StaffService.customer.includes(
+        :home_address, :work_address, :personal_phones, :phones,
+        home_address: :phones, work_address: :phones
+      ).find(params[:id])
       customer.destroy!
       flash.notice = '顧客アカウントを削除しました。'
       redirect_to :staff_customers
