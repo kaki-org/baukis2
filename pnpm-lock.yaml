@@ -34,10 +34,10 @@ importers:
         version: 2.9.4(webpack@5.101.3)
       sass:
         specifier: ^1.80.0
-        version: 1.93.0
+        version: 1.93.2
       sass-loader:
         specifier: ^16.0.0
-        version: 16.0.5(sass@1.93.0)(webpack@5.101.3)
+        version: 16.0.5(sass@1.93.2)(webpack@5.101.3)
       webpack:
         specifier: ^5.95.0
         version: 5.101.3(webpack-cli@6.0.1)
@@ -1303,8 +1303,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.93.0:
-    resolution: {integrity: sha512-CQi5/AzCwiubU3dSqRDJ93RfOfg/hhpW1l6wCIvolmehfwgCI35R/0QDs1+R+Ygrl8jFawwwIojE2w47/mf94A==}
+  sass@1.93.2:
+    resolution: {integrity: sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -2773,14 +2773,14 @@ snapshots:
 
   safe-buffer@5.2.1: {}
 
-  sass-loader@16.0.5(sass@1.93.0)(webpack@5.101.3):
+  sass-loader@16.0.5(sass@1.93.2)(webpack@5.101.3):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
-      sass: 1.93.0
+      sass: 1.93.2
       webpack: 5.101.3(webpack-cli@6.0.1)
 
-  sass@1.93.0:
+  sass@1.93.2:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.3
