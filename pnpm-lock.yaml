@@ -19,10 +19,10 @@ importers:
         version: 8.0.16
       '@rails/actioncable':
         specifier: ^8.0.0
-        version: 8.0.201
+        version: 8.0.300
       '@rails/activestorage':
         specifier: ^8.0.0
-        version: 8.0.201
+        version: 8.0.300
       css-loader:
         specifier: ^7.1.0
         version: 7.1.2(webpack@5.101.3)
@@ -34,10 +34,10 @@ importers:
         version: 2.9.4(webpack@5.101.3)
       sass:
         specifier: ^1.80.0
-        version: 1.92.1
+        version: 1.93.2
       sass-loader:
         specifier: ^16.0.0
-        version: 16.0.5(sass@1.92.1)(webpack@5.101.3)
+        version: 16.0.5(sass@1.93.2)(webpack@5.101.3)
       webpack:
         specifier: ^5.95.0
         version: 5.101.3(webpack-cli@6.0.1)
@@ -53,7 +53,7 @@ importers:
         version: 7.28.3(@babel/core@7.28.4)
       '@playwright/test':
         specifier: ^1.35.1
-        version: 1.55.0
+        version: 1.55.1
       babel-loader:
         specifier: ^10.0.0
         version: 10.0.0(@babel/core@7.28.4)(webpack@5.101.3)
@@ -675,16 +675,16 @@ packages:
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
 
-  '@playwright/test@1.55.0':
-    resolution: {integrity: sha512-04IXzPwHrW69XusN/SIdDdKZBzMfOT9UNT/YiJit/xpy2VuAoB8NHc8Aplb96zsWDddLnbkPL3TsmrS04ZU2xQ==}
+  '@playwright/test@1.55.1':
+    resolution: {integrity: sha512-IVAh/nOJaw6W9g+RJVlIQJ6gSiER+ae6mKQ5CX1bERzQgbC1VSeBlwdvczT7pxb0GWiyrxH4TGKbMfDb4Sq/ig==}
     engines: {node: '>=18'}
     hasBin: true
 
-  '@rails/actioncable@8.0.201':
-    resolution: {integrity: sha512-WiXZodvnK7u+wlu72DZydfV75x14HhzXI84sto9xcdsW1DMOHK+jYwQuuE/Wh/hKH5yajFIw/3DUP6MHDeGrbA==}
+  '@rails/actioncable@8.0.300':
+    resolution: {integrity: sha512-X+jxLnyYciTciEeM9crFFsR6DCodCsnoQIzv4hEST6Lx1rEBEjNQbBopnyDT4gr7lBeHJNfb6fEcvZuWFxUSQg==}
 
-  '@rails/activestorage@8.0.201':
-    resolution: {integrity: sha512-nwc2UnffHA3lgStYP01JUF9ni9dZTPX7YJESj5qRjrox4Q3oA7bDErKySP6bS9fOTcwtrPvTHBH95gKpLEic6Q==}
+  '@rails/activestorage@8.0.300':
+    resolution: {integrity: sha512-vgugHjdH0wLM1+ajWdoiNNFphDsZrd349iJvfyVPC21IkMdJOnaBpF4eaV847cDqP/7mxxDZ4nkhc7dgQjGa4A==}
 
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
@@ -1188,13 +1188,13 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.55.0:
-    resolution: {integrity: sha512-GvZs4vU3U5ro2nZpeiwyb0zuFaqb9sUiAJuyrWpcGouD8y9/HLgGbNRjIph7zU9D3hnPaisMl9zG9CgFi/biIg==}
+  playwright-core@1.55.1:
+    resolution: {integrity: sha512-Z6Mh9mkwX+zxSlHqdr5AOcJnfp+xUWLCt9uKV18fhzA8eyxUd8NUWzAjxUh55RZKSYwDGX0cfaySdhZJGMoJ+w==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.55.0:
-    resolution: {integrity: sha512-sdCWStblvV1YU909Xqx0DhOjPZE4/5lJsIS84IfN9dAZfcl/CIZ5O8l3o0j7hPMjDvqoTF8ZUcc+i/GL5erstA==}
+  playwright@1.55.1:
+    resolution: {integrity: sha512-cJW4Xd/G3v5ovXtJJ52MAOclqeac9S/aGGgRzLabuF8TnIb6xHvMzKIa6JmrRzUkeXJgfL1MhukP0NK6l39h3A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1303,8 +1303,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.92.1:
-    resolution: {integrity: sha512-ffmsdbwqb3XeyR8jJR6KelIXARM9bFQe8A6Q3W4Klmwy5Ckd5gz7jgUNHo4UOqutU5Sk1DtKLbpDP0nLCg1xqQ==}
+  sass@1.93.2:
+    resolution: {integrity: sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -2133,7 +2133,7 @@ snapshots:
   '@hotwired/turbo-rails@8.0.16':
     dependencies:
       '@hotwired/turbo': 8.0.13
-      '@rails/actioncable': 8.0.201
+      '@rails/actioncable': 8.0.300
 
   '@hotwired/turbo@8.0.13': {}
 
@@ -2222,13 +2222,13 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.5.1
     optional: true
 
-  '@playwright/test@1.55.0':
+  '@playwright/test@1.55.1':
     dependencies:
-      playwright: 1.55.0
+      playwright: 1.55.1
 
-  '@rails/actioncable@8.0.201': {}
+  '@rails/actioncable@8.0.300': {}
 
-  '@rails/activestorage@8.0.201':
+  '@rails/activestorage@8.0.300':
     dependencies:
       spark-md5: 3.0.2
 
@@ -2684,11 +2684,11 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.55.0: {}
+  playwright-core@1.55.1: {}
 
-  playwright@1.55.0:
+  playwright@1.55.1:
     dependencies:
-      playwright-core: 1.55.0
+      playwright-core: 1.55.1
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -2773,14 +2773,14 @@ snapshots:
 
   safe-buffer@5.2.1: {}
 
-  sass-loader@16.0.5(sass@1.92.1)(webpack@5.101.3):
+  sass-loader@16.0.5(sass@1.93.2)(webpack@5.101.3):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
-      sass: 1.92.1
+      sass: 1.93.2
       webpack: 5.101.3(webpack-cli@6.0.1)
 
-  sass@1.92.1:
+  sass@1.93.2:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.3
