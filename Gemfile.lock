@@ -517,6 +517,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   bootsnap (>= 1.4.2)
+  bundler (~> 2.7)
   byebug
   capybara (>= 2.15)
   capybara-playwright-driver
@@ -556,7 +557,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 3.4.5p51
+   ruby 3.4.6p54
 
 BUNDLED WITH
-   2.4.8
+   2.7.2
