@@ -16,7 +16,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:17.6-alpine
+        image: postgres:18.0-alpine
         ports:
           - 5432:5432
         env:
@@ -46,14 +46,14 @@ jobs:
       - name: Setup bundler
         run: gem install bundler
       - name: Install Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           package-manager-cache: false
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.17.1
+          version: 10.19.0
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers
@@ -88,10 +88,15 @@ jobs:
       - name: Fix lcov file paths and show content
         if: always()
         run: |
-          sed -i 's|SF:./|SF:|g' coverage/lcov.info
-          echo "--- Fixed lcov.info content ---"
-          cat coverage/lcov.info
+          if [ -f coverage/lcov.info ]; then
+            sed -i 's|SF:./|SF:|g' coverage/lcov.info
+            echo "--- Fixed lcov.info content ---"
+            cat coverage/lcov.info
+          else
+            echo "Warning: coverage/lcov.info file not found. Coverage may not have been generated due to test failures."
+          fi
       - name: Codecov
+        if: always() && hashFiles('coverage/lcov.info') != ''
         uses: codecov/codecov-action@v5.5.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
