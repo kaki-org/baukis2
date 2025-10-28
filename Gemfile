@@ -14,7 +14,7 @@ gem 'puma', '~> 7.0'
 gem 'rails', '~> 8.1.0'
 gem 'sassc-rails'
 gem 'stimulus-rails'
-gem 'turbo-rails'
+gem 'turbo-rails', '>= 2.0.17'
 
 gem 'packs-rails'
 gem 'packwerk'
@@ -39,7 +39,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop-rails', '>= 2.24.0', require: false
   gem 'rubocop-rspec', require: false
 end
 
