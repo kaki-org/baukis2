@@ -42,7 +42,7 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     ports:
       - "25432:5432"
   rails_cred:
