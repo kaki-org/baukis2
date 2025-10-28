@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.6'
+ruby '3.4.7'
 gem 'bundler', '~> 2.7'
 
 gem 'importmap-rails'
@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 2.11'
 gem 'jsbundling-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 7.0'
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.1.0'
 gem 'sassc-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
