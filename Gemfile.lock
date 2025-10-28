@@ -431,11 +431,12 @@ GEM
     rubocop-factory_bot (2.27.1)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    rubocop-rails (2.23.1)
+    rubocop-rails (2.33.4)
       activesupport (>= 4.2.0)
+      lint_roller (~> 1.1)
       rack (>= 1.1)
-      rubocop (>= 1.33.0, < 2.0)
-      rubocop-ast (>= 1.30.0, < 2.0)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.44.0, < 2.0)
     rubocop-rspec (3.7.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
@@ -551,13 +552,13 @@ DEPENDENCIES
   rubocop
   rubocop-capybara
   rubocop-factory_bot
-  rubocop-rails
+  rubocop-rails (>= 2.24.0)
   rubocop-rspec
   sassc-rails
   simplecov
   simplecov-lcov
   stimulus-rails
-  turbo-rails
+  turbo-rails (>= 2.0.17)
   valid_email2
   web-console (>= 3.3.0)
 
