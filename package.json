@@ -6,7 +6,7 @@
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@hotwired/turbo-rails": "^8.0.18",
     "@rails/actioncable": "^8.0.0",
-    "@rails/activestorage": "^8.0.0",
+    "@rails/activestorage": "^8.0.300",
     "jquery": "^3.7.1",
     "sass": "^1.80.0",
     "sass-loader": "^16.0.0",
@@ -28,5 +28,5 @@
     "build:prod": "webpack --config ./config/webpack/webpack.config.js --mode=production",
     "watch": "webpack --config ./config/webpack/webpack.config.js --watch"
   },
-  "packageManager": "pnpm@10.19.0"
+  "packageManager": "pnpm@10.20.0"
 }
