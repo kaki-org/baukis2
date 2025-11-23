@@ -32,10 +32,10 @@ jobs:
           show-waiting-runner: true
       - name: checkout
         if: ${{ github.event_name != 'pull_request' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: checkout pr
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup Ruby version
