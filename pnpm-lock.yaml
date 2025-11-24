@@ -18,7 +18,7 @@ importers:
         specifier: ^8.0.18
         version: 8.0.20
       '@rails/actioncable':
-        specifier: ^8.0.0
+        specifier: ^8.0.300
         version: 8.1.100
       '@rails/activestorage':
         specifier: ^8.0.300
