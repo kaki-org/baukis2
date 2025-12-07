@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.4.7'
-gem 'bundler', '~> 2.7'
+gem 'bundler', '~> 4.0'
 
 gem 'importmap-rails'
 gem 'jbuilder', '~> 2.11'
