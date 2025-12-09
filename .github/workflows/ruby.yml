@@ -98,7 +98,7 @@ jobs:
           fi
       - name: Codecov
         if: always() && hashFiles('coverage/lcov.info') != ''
-        uses: codecov/codecov-action@v5.5.1
+        uses: codecov/codecov-action@v5.5.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/lcov.info
