@@ -1,6 +1,6 @@
 ARG IMAGE_FILE=ruby
 
-FROM ${IMAGE_FILE}:3.4.8-alpine3.22
+FROM ${IMAGE_FILE}:4.0.0-alpine3.22
 RUN apk --no-cache add \
     build-base \
     bash \
