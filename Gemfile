@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.8'
+ruby '4.0.0'
 gem 'bundler', '~> 4.0'
 
 gem 'importmap-rails'
@@ -19,6 +19,9 @@ gem 'turbo-rails', '>= 2.0.17'
 gem 'packs-rails'
 gem 'packwerk'
 gem 'packwerk-extensions'
+
+# Ruby 4.0.0で標準ライブラリから削除されたため明示的に追加
+gem 'benchmark'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
