@@ -20,6 +20,9 @@ gem 'packs-rails'
 gem 'packwerk'
 gem 'packwerk-extensions'
 
+# Ruby 4.0.0で標準ライブラリから削除されたため明示的に追加
+gem 'benchmark'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
