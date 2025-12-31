@@ -63,6 +63,8 @@ jobs:
         run: |
           bundle config set path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
+        env:
+          BUNDLE_FORCE_RUBY_PLATFORM: "true"
       - name: Setup Database
         run: |
           cp config/database.yml.github-actions config/database.yml
