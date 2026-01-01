@@ -36,7 +36,7 @@ gem 'rails-i18n'
 gem 'valid_email2'
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: %i[mri windows]
   gem 'erb_lint', require: false
   gem 'factory_bot_rails'
   gem 'rubocop', require: false
