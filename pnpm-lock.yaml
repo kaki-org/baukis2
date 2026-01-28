@@ -16,7 +16,7 @@ importers:
         version: 1.0.1(@hotwired/stimulus@3.2.2)
       '@hotwired/turbo-rails':
         specifier: ^8.0.18
-        version: 8.0.20
+        version: 8.0.22
       '@rails/actioncable':
         specifier: ^8.0.300
         version: 8.1.200
@@ -63,11 +63,11 @@ packages:
   '@hotwired/stimulus@3.2.2':
     resolution: {integrity: sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==}
 
-  '@hotwired/turbo-rails@8.0.20':
-    resolution: {integrity: sha512-4aYkYF9XMKL7ZZPfgElq15+60osZOwMwhztE4myKQYEzCPvaPUxwZH301tOrBNtWUwOD+TNOm1Hrpeaq22RX9A==}
+  '@hotwired/turbo-rails@8.0.22':
+    resolution: {integrity: sha512-8HqjVD7KrkEt2x7b1zuNqlD5IqEe8Yyme8djYqVwajkkQh5AfnRvLI7Q+J7wWgNPS9LaDz5Tif7Z9/qemdjQ4g==}
 
-  '@hotwired/turbo@8.0.20':
-    resolution: {integrity: sha512-IilkH/+h92BRLeY/rMMR3MUh1gshIfdra/qZzp/Bl5FmiALD/6sQZK/ecxSbumeyOYiWr/JRI+Au1YQmkJGnoA==}
+  '@hotwired/turbo@8.0.22':
+    resolution: {integrity: sha512-A7M8vBgsmZ8W55IOEhTN7o0++zaJTavyGa1DW1rt+/b4VTr8QUWC/zu8wxMmwqvczaOe1nI/MkMq4lm2NmiHPg==}
     engines: {node: '>= 18'}
 
   '@jridgewell/gen-mapping@0.3.13':
@@ -814,12 +814,12 @@ snapshots:
 
   '@hotwired/stimulus@3.2.2': {}
 
-  '@hotwired/turbo-rails@8.0.20':
+  '@hotwired/turbo-rails@8.0.22':
     dependencies:
-      '@hotwired/turbo': 8.0.20
+      '@hotwired/turbo': 8.0.22
       '@rails/actioncable': 8.1.200
 
-  '@hotwired/turbo@8.0.20': {}
+  '@hotwired/turbo@8.0.22': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
