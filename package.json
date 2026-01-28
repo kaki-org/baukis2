@@ -17,10 +17,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "@babel/core": "^7.25.0",
-    "@babel/preset-env": "^7.25.0",
-    "@playwright/test": "^1.35.1",
-    "babel-loader": "^10.0.0"
+    "@playwright/test": "^1.35.1"
   },
   "scripts": {
     "build": "webpack --config ./config/webpack/webpack.config.js",
@@ -28,5 +25,5 @@
     "build:prod": "webpack --config ./config/webpack/webpack.config.js --mode=production",
     "watch": "webpack --config ./config/webpack/webpack.config.js --watch"
   },
-  "packageManager": "pnpm@10.28.0"
+  "packageManager": "pnpm@10.28.2"
 }

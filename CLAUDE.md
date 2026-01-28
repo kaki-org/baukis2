@@ -56,7 +56,7 @@ dip pnpm build      # JavaScriptビルド
 ```
 
 ## 技術スタック
-- Ruby 3.4.4, Rails 8.0.0
+- Ruby 4.0.0, Rails 8.0.0
 - PostgreSQL 17
 - Stimulus, Turbo Rails, Webpack
 - テスト用RSpec with Capybara/Playwright
