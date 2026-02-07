@@ -29,17 +29,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-            cacheDirectory: true
-          }
-        }
-      },
-      {
         test: /\.(scss|sass|css)$/,
         use: [
           MiniCssExtractPlugin.loader,
