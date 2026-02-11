@@ -26,7 +26,7 @@ jobs:
 
     # https://github.com/ruby/setup-ruby
     steps:
-      - uses: Kesin11/actions-timeline@v2
+      - uses: Kesin11/actions-timeline@v3
         with:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           show-waiting-runner: true
@@ -53,7 +53,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.28.2
+          version: 10.29.2
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers
@@ -86,7 +86,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-      - name: Fix lcov file paths and show content
+      - name: Fix lcov file paths
         if: always()
         run: |
           if [ -f coverage/lcov.info ]; then
@@ -96,12 +96,34 @@ jobs:
           else
             echo "Warning: coverage/lcov.info file not found. Coverage may not have been generated due to test failures."
           fi
-      - name: Codecov
+      - name: Upload coverage artifact
         if: always() && hashFiles('coverage/lcov.info') != ''
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+          retention-days: 1
+
+  codecov_job:
+    name: Upload Coverage
+    needs: rspec_job
+    if: always() && needs.rspec_job.result != 'cancelled'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: coverage-lcov
+          path: coverage
+        continue-on-error: true
+      - name: Codecov
+        if: hashFiles('coverage/lcov.info') != ''
         uses: codecov/codecov-action@v5.5.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/lcov.info
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           disable_file_fixes: true
           verbose: true
