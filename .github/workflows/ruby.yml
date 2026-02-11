@@ -26,7 +26,7 @@ jobs:
 
     # https://github.com/ruby/setup-ruby
     steps:
-      - uses: Kesin11/actions-timeline@v2
+      - uses: Kesin11/actions-timeline@v3
         with:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           show-waiting-runner: true
