@@ -25,5 +25,5 @@
     "build:prod": "webpack --config ./config/webpack/webpack.config.js --mode=production",
     "watch": "webpack --config ./config/webpack/webpack.config.js --watch"
   },
-  "packageManager": "pnpm@10.29.2"
+  "packageManager": "pnpm@10.29.3"
 }
