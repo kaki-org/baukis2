@@ -1,6 +1,47 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "extends": ["config:recommended"],
+  "ignorePaths": [],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["before 9am"],
+  "automerge": false,
+  "automergeStrategy": "merge-commit",
+  "separateMajorMinor": false,
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchManagers": ["bundler"],
+      "assignees": ["kakikubo"]
+    },
+    {
+      "matchManagers": ["bun"],
+      "assignees": ["kakikubo"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "assignees": ["kakikubo"]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "platformAutomerge": true,
+      "matchPackageNames": [
+        "/^@types/",
+        "/^rubocop*/",
+        "/^rspec*/",
+        "/^@nuxtjs/eslint/",
+        "/^crawler$/",
+        "/^eslint/",
+        "/^jest/",
+        "/^ts-jest$/",
+        "/^playwright/",
+        "/^http-server$/",
+        "/^actions/checkout$/",
+        "/^release-drafter/release-drafter$/",
+        "/^ruby/setup-ruby$/",
+        "/^toshimaru/backlog-pr-link-action$/",
+        "/^bootsnap$/"
+      ]
+    }
   ]
 }
