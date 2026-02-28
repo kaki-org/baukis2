@@ -16,7 +16,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:18.2-alpine
+        image: postgres:18.3-alpine
         ports:
           - 5432:5432
         env:
@@ -53,7 +53,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.30.1
+          version: 10.30.3
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers
@@ -98,7 +98,7 @@ jobs:
           fi
       - name: Upload coverage artifact
         if: always() && hashFiles('coverage/lcov.info') != ''
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-lcov
           path: coverage/lcov.info
@@ -113,7 +113,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v6
       - name: Download coverage artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: coverage-lcov
           path: coverage
