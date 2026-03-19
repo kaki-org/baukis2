@@ -42,7 +42,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
-  gem 'rubocop-rails', '>= 2.24.0', require: false
+  gem 'rubocop-rails', '>= 2.34.0', require: false
   gem 'rubocop-rspec', require: false
 end
 
