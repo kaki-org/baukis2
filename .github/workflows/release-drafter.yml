@@ -23,9 +23,12 @@ jobs:
       #    echo "GHE_HOST=${GITHUB_SERVER_URL##https:\/\/}" >> $GITHUB_ENV
 
       # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v6
+      - uses: release-drafter/release-drafter@v7
         with:
-          publish: true
+          # target_commitish が PR 時に解決できないエラー（Validation Failed）を解消するため明示的に指定
+          commitish: master
+          # master への push (マージ) 時のみリリースを公開し、PR時は下書き更新のみにする
+          publish: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
         # with:
         #   config-name: my-config.yml
