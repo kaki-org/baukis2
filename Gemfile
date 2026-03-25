@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 2.11'
 gem 'jsbundling-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 7.0'
-gem 'rails', '~> 8.1.0'
+gem 'rails', '~> 8.1.2', '>= 8.1.2.1'
 gem 'sassc-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails', '>= 2.0.17'
@@ -42,7 +42,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
-  gem 'rubocop-rails', '>= 2.24.0', require: false
+  gem 'rubocop-rails', '>= 2.34.0', require: false
   gem 'rubocop-rspec', require: false
 end
 
