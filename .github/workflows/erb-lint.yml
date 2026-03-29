@@ -13,7 +13,7 @@ jobs:
       BUNDLE_ONLY: test
       RAILS_ENV: test
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: .tool-versions

@@ -16,7 +16,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:17.6-alpine
+        image: postgres:18.3-alpine
         ports:
           - 5432:5432
         env:
@@ -26,16 +26,16 @@ jobs:
 
     # https://github.com/ruby/setup-ruby
     steps:
-      - uses: Kesin11/actions-timeline@v2
+      - uses: Kesin11/actions-timeline@v3
         with:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           show-waiting-runner: true
       - name: checkout
         if: ${{ github.event_name != 'pull_request' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: checkout pr
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup Ruby version
@@ -46,14 +46,12 @@ jobs:
       - name: Setup bundler
         run: gem install bundler
       - name: Install Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           package-manager-cache: false
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.15.1
+        uses: pnpm/action-setup@v5
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers
@@ -61,7 +59,8 @@ jobs:
 
       - name: bundle install
         run: |
-          bundle install --jobs 4 --retry 3 --path vendor/bundle
+          bundle config set path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
       - name: Setup Database
         run: |
           cp config/database.yml.github-actions config/database.yml
@@ -85,17 +84,44 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-      - name: Fix lcov file paths and show content
+      - name: Fix lcov file paths
         if: always()
         run: |
-          sed -i 's|SF:./|SF:|g' coverage/lcov.info
-          echo "--- Fixed lcov.info content ---"
-          cat coverage/lcov.info
+          if [ -f coverage/lcov.info ]; then
+            sed -i 's|SF:./|SF:|g' coverage/lcov.info
+            echo "--- Fixed lcov.info content ---"
+            cat coverage/lcov.info
+          else
+            echo "Warning: coverage/lcov.info file not found. Coverage may not have been generated due to test failures."
+          fi
+      - name: Upload coverage artifact
+        if: always() && hashFiles('coverage/lcov.info') != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+          retention-days: 1
+
+  codecov_job:
+    name: Upload Coverage
+    needs: rspec_job
+    if: always() && needs.rspec_job.result != 'cancelled'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: coverage-lcov
+          path: coverage
+        continue-on-error: true
       - name: Codecov
-        uses: codecov/codecov-action@v5.5.1
+        if: hashFiles('coverage/lcov.info') != ''
+        uses: codecov/codecov-action@v6.0.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/lcov.info
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           disable_file_fixes: true
           verbose: true

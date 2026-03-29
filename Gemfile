@@ -3,21 +3,25 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.5'
+ruby '4.0.0'
+gem 'bundler', '~> 4.0'
 
 gem 'importmap-rails'
 gem 'jbuilder', '~> 2.11'
 gem 'jsbundling-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 7.0'
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.1.2', '>= 8.1.2.1'
 gem 'sassc-rails'
 gem 'stimulus-rails'
-gem 'turbo-rails'
+gem 'turbo-rails', '>= 2.0.17'
 
 gem 'packs-rails'
 gem 'packwerk'
 gem 'packwerk-extensions'
+
+# Ruby 4.0.0で標準ライブラリから削除されたため明示的に追加
+gem 'benchmark'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -38,12 +42,12 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop-rails', '>= 2.34.0', require: false
   gem 'rubocop-rspec', require: false
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.10'
+  gem 'listen', '>= 3.0.5', '< 3.11'
   gem 'pry-rails'
   gem 'web-console', '>= 3.3.0'
 end
