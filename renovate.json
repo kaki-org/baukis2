@@ -40,7 +40,9 @@
         "/^release-drafter/release-drafter$/",
         "/^ruby/setup-ruby$/",
         "/^toshimaru/backlog-pr-link-action$/",
-        "/^bootsnap$/"
+        "/^bootsnap$/",
+        "/^nokogiri$/",
+        "/^bcrypt$/"
       ]
     }
   ]
