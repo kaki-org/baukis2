@@ -29,6 +29,7 @@
         "/^@types/",
         "/^rubocop*/",
         "/^rspec*/",
+        "/^sass*/",
         "/^@nuxtjs/eslint/",
         "/^crawler$/",
         "/^eslint/",
