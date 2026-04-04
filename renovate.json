@@ -30,6 +30,7 @@
         "/^rubocop*/",
         "/^rspec*/",
         "/^rack*/",
+        "/^sass*/",
         "/^@nuxtjs/eslint/",
         "/^crawler$/",
         "/^eslint/",
