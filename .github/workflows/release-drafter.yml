@@ -8,19 +8,19 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  # autolabelerのみ（PRイベント時）
-  autolabel:
+  autolabeler:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@v7
-        with:
-          commitish: master
+      - uses: release-drafter/release-drafter/autolabeler@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # リリースドラフト更新＋公開（masterへのpush時のみ）
   update_release_draft:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -28,6 +28,5 @@ jobs:
       - uses: release-drafter/release-drafter@v7
         with:
           publish: true
-          commitish: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
