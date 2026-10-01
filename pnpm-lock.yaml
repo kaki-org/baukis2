@@ -177,10 +177,10 @@ importers:
         version: 8.0.23
       '@rails/actioncable':
         specifier: ^8.0.300
-        version: 8.1.301
+        version: 8.1.400
       '@rails/activestorage':
         specifier: ^8.0.300
-        version: 8.1.301
+        version: 8.1.400
       css-loader:
         specifier: ^7.1.0
         version: 7.1.5(webpack@5.111.1)
@@ -331,11 +331,11 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@rails/actioncable@8.1.301':
-    resolution: {integrity: sha512-n4Q6DfnqnZ604xgqeqURNyUmk6JtPoKf++UeV9agvecIkV3AcpgJs5D08Kx8WnZNgM7u4av9ezfIXv+CgdV94A==}
+  '@rails/actioncable@8.1.400':
+    resolution: {integrity: sha512-Qffc3/I9xcpeaal12hmi9EPRV3hz9FvakUHBR7kL0jpZviWwO9dyaG8F1ltcjkHIdFxQ5QqzRyequAWHMq17xQ==}
 
-  '@rails/activestorage@8.1.301':
-    resolution: {integrity: sha512-o+gxhV96Wa/NpVdTWib9iR9RWlqWjjsylPv16muSFUjIhI6usZJBjM1y93h9cjwWfuW/FxI5QONeH3EFv3+cbg==}
+  '@rails/activestorage@8.1.400':
+    resolution: {integrity: sha512-ScpkkHXTQ7QByvzLbnrnubpsWRKhlu08kXyRhSV+Hh1s1X43lv5T0PFLhXAvmqrIcq8nQ2up8iyuCmIzacPDDw==}
 
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
@@ -933,7 +933,7 @@ snapshots:
   '@hotwired/turbo-rails@8.0.23':
     dependencies:
       '@hotwired/turbo': 8.0.23
-      '@rails/actioncable': 8.1.301
+      '@rails/actioncable': 8.1.400
 
   '@hotwired/turbo@8.0.23': {}
 
@@ -1017,9 +1017,9 @@ snapshots:
     dependencies:
       playwright: 1.63.0
 
-  '@rails/actioncable@8.1.301': {}
+  '@rails/actioncable@8.1.400': {}
 
-  '@rails/activestorage@8.1.301':
+  '@rails/activestorage@8.1.400':
     dependencies:
       spark-md5: 3.0.2
 
