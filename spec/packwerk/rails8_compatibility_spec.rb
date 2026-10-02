@@ -17,11 +17,19 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       expect(staff_package['dependencies']).to include('packs/customer')
     end
 
-    it 'プライバシー強制が正しく動作する' do
-      # package_todo.yml にプライバシー違反が記録されていることを確認
-      root_todo = YAML.load_file('package_todo.yml')
-      expect(root_todo['packs/customer']).to be_present
-      expect(root_todo['packs/customer']['::Address']['violations']).to include('privacy')
+    it 'customer パックの公開 API が pack_public で宣言されている' do
+      # packwerk-extensions (Packwerk::Privacy::Checker) と同じく先頭 5 行を同じ正規表現で判定する。
+      # 違反がないことは packwerk check で担保し、ここでは公開 API の一覧を固定する
+      public_files = Dir.glob('packs/customer/**/*.rb').select do |path|
+        File.foreach(path).first(5).any? { |line| line.match?(/#.*pack_public:\s*true/) }
+      end
+      expect(public_files).to contain_exactly(
+        'packs/customer/app/models/address.rb',
+        'packs/customer/app/models/customer.rb',
+        'packs/customer/app/models/phone.rb',
+        'packs/customer/app/presenters/customer_form_presenter.rb',
+        'packs/customer/app/presenters/customer_presenter.rb'
+      )
     end
   end
 

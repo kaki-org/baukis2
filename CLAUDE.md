@@ -15,7 +15,7 @@ Ruby と gem は Docker コンテナ内にのみ存在するため、ホスト�
 - 初期セットアップ: dip provision
 
 ## packwerk 境界
-全パックが enforce_dependencies / enforce_privacy: true。既存違反はルートと各パックの package_todo.yml に猶予登録されているだけで、新規のパック外定数参照は CI (danger-packwerk) で検出される。新規コードで package_todo.yml に頼らない。パック間参照の正しい方法は packs/CLAUDE.md を参照。
+全パックが enforce_dependencies / enforce_privacy: true。既存違反は各パックの package_todo.yml に猶予登録されているだけで、新規のパック外定数参照は CI (danger-packwerk) で検出される。新規コードで package_todo.yml に頼らない。パック間参照の正しい方法は packs/CLAUDE.md を参照。
 
 ## 技術スタック
 Ruby 4.0.0 / Rails 8.1 / PostgreSQL 18 / RSpec + Capybara (Playwright) / webpack + pnpm (Shakapacker 不使用) / Stimulus。i18n デフォルトは ja、タイムゾーンは Tokyo。
