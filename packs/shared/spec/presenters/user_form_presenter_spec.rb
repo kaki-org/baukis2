@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# spec/presenters/user_form_presenter_spec.rb
+# packs/shared/spec/presenters/user_form_presenter_spec.rb
 
 require 'rails_helper'
 
