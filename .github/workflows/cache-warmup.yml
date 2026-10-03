@@ -62,6 +62,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
+      # ruby.yml は復元だけを行い、保存はここでしか行わない
       - name: Cache Playwright Browsers
         uses: actions/cache@v6
         id: playwright-cache
