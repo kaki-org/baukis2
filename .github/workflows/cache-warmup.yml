@@ -1,0 +1,73 @@
+name: cache-warmup
+
+# PR のワークフローは pull_request でしか起動しないため、キャッシュが refs/pull/N/merge の
+# スコープに閉じて PR 間で再利用されない。develop のスコープにキャッシュを作り、
+# develop 向けの全 PR から読めるようにする。キー式は各ワークフローと揃えること
+on:
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  bundler:
+    name: bundler (${{ matrix.bundle-only || 'all' }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # '' は ruby.yml / danger.yml、test は erb-lint.yml、development は rubocop.yml 用
+        bundle-only: [ '', test, development ]
+    steps:
+      - uses: actions/checkout@v7
+      # setup-ruby のキャッシュキーは BUNDLE_ONLY を含むので、空のときは変数自体を設定しない
+      - name: Set BUNDLE_ONLY
+        if: ${{ matrix.bundle-only != '' }}
+        env:
+          BUNDLE_ONLY_VALUE: ${{ matrix.bundle-only }}
+        run: echo "BUNDLE_ONLY=${BUNDLE_ONLY_VALUE}" >> "$GITHUB_ENV"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .tool-versions
+          bundler-cache: true
+
+  node:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+      - name: Get pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+      - name: Cache pnpm store
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        run: pnpm install
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v6
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
