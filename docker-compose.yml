@@ -26,7 +26,6 @@ services:
       - /work/app/vendor
       - /work/app/tmp
       - /work/app/log
-      - /work/app/.git
       - /work/app/node_modules
     ports:
       - "23000:3000"
