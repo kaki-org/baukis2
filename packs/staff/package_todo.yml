@@ -7,57 +7,8 @@
 # bin/packwerk update-todo
 ---
 ".":
-  "::AddressFormPresenter":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/views/staff/customers/_home_address_fields.html.erb
-    - packs/staff/app/views/staff/customers/_work_address_fields.html.erb
-  "::AddressPresenter":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/views/staff/customers/show.html.erb
   "::AdminService":
     violations:
     - privacy
     files:
     - packs/staff/config/initializers/configure_staff.rb
-  "::ApplicationController":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/controllers/staff/base.rb
-  "::ApplicationRecord":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/models/staff_event.rb
-    - packs/staff/app/models/staff_member.rb
-  "::EmailHolder":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/models/staff_member.rb
-  "::FormPresenter":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/views/staff/customers/_form.html.erb
-    - packs/staff/app/views/staff/passwords/edit.html.erb
-  "::PasswordHolder":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/models/staff_member.rb
-  "::PersonalNameHolder":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/models/staff_member.rb
-  "::UserFormPresenter":
-    violations:
-    - privacy
-    files:
-    - packs/staff/app/presenters/staff_member_form_presenter.rb
-    - packs/staff/app/views/staff/accounts/_form.html.erb

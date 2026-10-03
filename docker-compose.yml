@@ -31,7 +31,8 @@ services:
       - "23000:3000"
       - "3035:3035"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     tty: true
     stdin_open: true
     user: root
@@ -44,6 +45,14 @@ services:
       - db:/var/lib/postgresql
     ports:
       - "25432:5432"
+    healthcheck:
+      # 初期化中の一時サーバは UNIX ソケットだけで待ち受けるので、TCP で判定して本起動を待つ
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-U", "postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 60s
+      start_interval: 1s
   rails_cred:
     image: medpeer/rails_cred
     environment:

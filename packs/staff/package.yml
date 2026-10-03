@@ -4,3 +4,4 @@ enforce_privacy: true
 dependencies:
   - "."
   - "packs/customer"
+  - "packs/shared"

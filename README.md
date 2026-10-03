@@ -83,8 +83,7 @@ grep -q 'PostgreSQL database cluster dump complete' "$DUMP" && echo dump-ok
 
 ```bash
 docker volume rm "$VOL"
-docker compose up -d db
-until docker compose exec db pg_isready -U postgres; do sleep 1; done
+docker compose up -d --wait db
 docker compose exec -T db psql -U postgres < "$DUMP"
 ```
 
