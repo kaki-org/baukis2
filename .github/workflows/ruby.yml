@@ -62,8 +62,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
-      - name: Cache Playwright Browsers
-        uses: actions/cache@v6
+      # 約 270MB あり PR ごとに保存すると容量上限を圧迫するので、保存は cache-warmup.yml (develop) だけで行う
+      - name: Restore Playwright Browsers
+        uses: actions/cache/restore@v6
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
