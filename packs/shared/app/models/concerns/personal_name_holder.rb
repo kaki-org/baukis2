@@ -1,3 +1,4 @@
+# pack_public: true
 # frozen_string_literal: true
 
 module PersonalNameHolder
