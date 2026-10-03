@@ -5,7 +5,7 @@ require 'rails_helper'
 # db/seeds.rb は Rails.root.glob が返す Pathname を扱う。
 # String#split('/') 前提のままだと ArgumentError になり、また同一パック内の
 # 依存順はファイル名順に依存するため、ここではその契約を固定する。
-RSpec.describe 'db/seeds.rb' do
+RSpec.describe 'development seed の読み込み契約', type: :task do
   describe 'パック seed の Pathname 取り扱い' do
     it 'Rails.root.glob の結果からパック名を取り出せる' do
       seed_files = Rails.root.glob('packs/*/db/seeds/development/*.rb')
