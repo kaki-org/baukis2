@@ -110,30 +110,10 @@ jobs:
           else
             echo "Warning: coverage/lcov.info file not found. Coverage may not have been generated due to test failures."
           fi
-      - name: Upload coverage artifact
-        if: always() && hashFiles('coverage/lcov.info') != ''
-        uses: actions/upload-artifact@v7
-        with:
-          name: coverage-lcov
-          path: coverage/lcov.info
-          retention-days: 1
-
-  codecov_job:
-    name: Upload Coverage
-    needs: rspec_job
-    if: always() && needs.rspec_job.result != 'cancelled'
-    runs-on: ubuntu-24.04
-    steps:
-      - name: checkout
-        uses: actions/checkout@v7
-      - name: Download coverage artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: coverage-lcov
-          path: coverage
-        continue-on-error: true
+      # 別ジョブにしなくても、continue-on-error で Codecov の障害が rspec_job を落とさない
       - name: Codecov
-        if: hashFiles('coverage/lcov.info') != ''
+        if: ${{ !cancelled() && hashFiles('coverage/lcov.info') != '' }}
+        continue-on-error: true
         uses: codecov/codecov-action@v7.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
