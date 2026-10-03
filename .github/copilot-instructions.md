@@ -10,19 +10,20 @@
 - Ubuntu 22.04
 - Ruby 4.0.0
 - PostgreSQL 17
-- dip（開発環境支援ツール）
+- Docker（Docker Compose v2）
 
 セットアップ例:
 ```bash
-dip provision
-dip rails db:migrate
-dip rails db:seed
-dip rails s
+docker compose up -d db
+docker compose run --rm web ./bin/setup --skip-server
+docker compose run --rm web bundle exec rails db:migrate
+docker compose run --rm web bundle exec rails db:seed
+docker compose run --rm --service-ports web bundle exec rails s -b 0.0.0.0
 ```
 
 テスト実行:
 ```bash
-dip rspec
+docker compose run --rm -e RAILS_ENV=test web bundle exec rspec
 ```
 
 ## 利用上の注意

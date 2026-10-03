@@ -15,25 +15,26 @@ Baukis2 は企業向けの顧客管理システム(Ruby on Rails 学習用サン
 
 # 必要なシステム
 
-* dip
-  * <https://github.com/bibendi/dip/tree/v5.0.0#installation>
+* Docker（Docker Compose v2 を含む）
+
+Ruby や gem はコンテナ内にのみあるので、コマンドは `docker compose run` 経由で実行します。
 
 # セットアップ
 
-書籍とちがってdip使うことにしてます。
-
 ```bash
-dip provision
-dip rails db:migrate
-dip rails db:seed
-dip rails s
+docker compose down --volumes
+docker compose up -d db
+docker compose run --rm web ./bin/setup --skip-server
+docker compose run --rm web bundle exec rails db:migrate
+docker compose run --rm web bundle exec rails db:seed
+docker compose run --rm --service-ports web bundle exec rails s -b 0.0.0.0
 ```
 
-などとして起動します
+などとして起動します（最初の 3 行が初期セットアップで、`down --volumes` は既存の DB を消します）。
 最初からデータを入れ直すときは
 
 ```bash
-dip rails db:reset
+docker compose run --rm web bundle exec rails db:reset
 ```
 
 ## PostgreSQL 18 への移行（既存の db ボリュームがある場合）
@@ -52,7 +53,8 @@ docker volume inspect "$VOL" > /dev/null   # 存在しない名前ならここ�
 ```bash
 docker compose rm -sf db
 docker volume rm "$VOL"
-dip provision
+docker compose up -d db
+docker compose run --rm web ./bin/setup --skip-server
 ```
 
 データを残したい場合は、旧バージョンでダンプしてから 18 にリストアします。
@@ -102,17 +104,30 @@ rm "$DUMP"
 ## テスト
 
 ```bash
-dip rspec
+docker compose run --rm -e RAILS_ENV=test web bundle exec rspec [path]
+```
+
+## lint
+
+```bash
+docker compose run --rm --no-deps web bundle exec rubocop      # 自動修正は -a
+docker compose run --rm web bundle exec brakeman
+```
+
+## credentials の編集
+
+```bash
+docker compose run --rm rails_cred
 ```
 
 ## テーブルがどのようなカラムをもっているか調べる
 
-```ruby
-dip rails r StaffMember.columns.each { |c| p [c.name, c.type ] }
+```bash
+docker compose run --rm web bundle exec rails r 'StaffMember.columns.each { |c| p [c.name, c.type ] }'
 ```
 
 ## アカウントをサスペンドするとか
 
-```ruby
-dip rails r StaffMember.first.update_columns(suspended: true)
+```bash
+docker compose run --rm web bundle exec rails r 'StaffMember.first.update_columns(suspended: true)'
 ```

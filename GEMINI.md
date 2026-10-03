@@ -15,17 +15,17 @@ Baukis2 は、書籍『Ruby on Rails 6 実践ガイド』をベースに、最�
 - **Language/Framework**: Ruby 4.0.0, Rails 8.1.0
 - **Database**: PostgreSQL 18.3
 - **Frontend**: Stimulus, Turbo Rails, Webpack
-- **Infrastructure**: Docker (managed by `dip`)
+- **Infrastructure**: Docker Compose
 - **Testing**: RSpec, Capybara, Playwright
 
-## 3. 主要な開発コマンド (dip 経由)
-コマンドを実行する際は、原則として `dip` を使用してください。
+## 3. 主要な開発コマンド (docker compose 経由)
+Ruby と gem はコンテナ内にのみあるため、コマンドは `docker compose run` で実行してください。
 
-- **セットアップ**: `dip provision`
-- **サーバー起動**: `dip rails s`
-- **テスト実行**: `dip rspec`
-- **リンター**: `dip rubocop`
-- **DB操作**: `dip rails db:migrate`, `dip rails db:seed`
+- **セットアップ**: `docker compose down --volumes && docker compose up -d db && docker compose run --rm web ./bin/setup --skip-server`（既存 DB を消します）
+- **サーバー起動**: `docker compose run --rm --service-ports web bundle exec rails s -b 0.0.0.0`
+- **テスト実行**: `docker compose run --rm -e RAILS_ENV=test web bundle exec rspec`
+- **リンター**: `docker compose run --rm --no-deps web bundle exec rubocop`
+- **DB操作**: `docker compose run --rm web bundle exec rails db:migrate`, `docker compose run --rm web bundle exec rails db:seed`
 
 ## 4. 開発・設計指針
 - **モジュール境界の遵守**: `packwerk` の境界を意識し、依存関係（`package.yml`）に違反しないよう実装してください。
