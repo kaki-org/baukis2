@@ -17,19 +17,44 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       expect(staff_package['dependencies']).to include('packs/customer')
     end
 
-    it 'customer パックの公開 API が pack_public で宣言されている' do
-      # packwerk-extensions (Packwerk::Privacy::Checker) と同じく先頭 5 行を同じ正規表現で判定する。
-      # 違反がないことは packwerk check で担保し、ここでは公開 API の一覧を固定する
-      public_files = Dir.glob('packs/customer/**/*.rb').select do |path|
+    # packwerk-extensions (Packwerk::Privacy::Checker) と同じく先頭 5 行を同じ正規表現で判定する。
+    # 違反がないことは packwerk check で担保し、ここでは公開 API の一覧を固定する
+    def pack_public_files(pack_path)
+      Dir.glob("#{pack_path}/**/*.rb").select do |path|
         File.foreach(path).first(5).any? { |line| line.match?(/#.*pack_public:\s*true/) }
       end
-      expect(public_files).to contain_exactly(
+    end
+
+    it 'customer パックの公開 API が pack_public で宣言されている' do
+      expect(pack_public_files('packs/customer')).to contain_exactly(
         'packs/customer/app/models/address.rb',
         'packs/customer/app/models/customer.rb',
         'packs/customer/app/models/phone.rb',
+        'packs/customer/app/presenters/address_form_presenter.rb',
+        'packs/customer/app/presenters/address_presenter.rb',
         'packs/customer/app/presenters/customer_form_presenter.rb',
         'packs/customer/app/presenters/customer_presenter.rb'
       )
+    end
+
+    it 'shared パックの公開 API が pack_public で宣言されている' do
+      expect(pack_public_files('packs/shared')).to contain_exactly(
+        'packs/shared/app/controllers/application_controller.rb',
+        'packs/shared/app/lib/html_builder.rb',
+        'packs/shared/app/models/application_record.rb',
+        'packs/shared/app/models/concerns/email_holder.rb',
+        'packs/shared/app/models/concerns/password_holder.rb',
+        'packs/shared/app/models/concerns/personal_name_holder.rb',
+        'packs/shared/app/models/concerns/string_normalizer.rb',
+        'packs/shared/app/presenters/form_presenter.rb',
+        'packs/shared/app/presenters/model_presenter.rb',
+        'packs/shared/app/presenters/user_form_presenter.rb'
+      )
+    end
+
+    it 'shared パックは他パックに依存しない' do
+      shared_package = YAML.load_file('packs/shared/package.yml')
+      expect(shared_package['dependencies']).to be_nil
     end
   end
 
@@ -53,7 +78,7 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
 
   describe 'パック構造' do
     it '各パックが適切な package.yml を持つ' do
-      %w[packs/admin packs/staff packs/customer].each do |pack_path|
+      %w[packs/admin packs/staff packs/customer packs/shared].each do |pack_path|
         package_file = File.join(pack_path, 'package.yml')
         expect(File.exist?(package_file)).to be true
 
