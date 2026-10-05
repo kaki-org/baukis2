@@ -12,7 +12,7 @@ StaffService.customer / AdminService.staff_member のように、initializer で
 他パックに公開するファイルは 1 行目に `# pack_public: true` を置く (frozen_string_literal より前。packwerk-extensions は先頭 5 行しか見ず、後ろに置くと rubocop の Layout/EmptyLineAfterMagicComment に掛かる)。app/public/ への移動はしない。現在の公開 API は customer パック (Customer / Address / Phone と各 Presenter) と shared パック (ErrorHandlers 以外の全ファイル) で、両パックの公開一覧は spec/packwerk/rails8_compatibility_spec.rb で固定している (公開を増減するときは spec も更新する。他パックで公開を始めるときは同様の検証を足す)。公開されていても依存宣言 (package.yml) のないパックからの参照は dependency 違反になる。StaffService は staff パック内でだけ使うので公開しない。
 
 ## 依存関係 (package.yml)
-全パック (root 含む) は packs/shared に依存する。shared は何にも依存しない。staff は加えて customer と root (.) に依存できる (root は AdminService のため)。admin は AdminService 経由でのみ staff のデータに触れる。customer は依存される側のリーフで、shared 以外への依存を追加しない。
+全パック (root 含む) は packs/shared に依存する。shared は何にも依存しない。root の依存は shared だけで、ルートの app/ と spec/ からパックのドメインモデルを参照しない (パックのモデルを使うテストは各パックの spec/ に置く)。staff は加えて customer と root (.) に依存できる (root は AdminService のため)。admin は AdminService 経由でのみ staff のデータに触れる。customer は依存される側のリーフで、shared 以外への依存を追加しない。
 
 ## ルーティング
 新ルートは対象パックの packs/*/config/routes/*.rb に手で書く。generator は skip_routes 設定 (config/application.rb) のためルートを自動追記しない。ホスト分離 (staff/admin: baukis2.lvh.me、customer: lvh.me) は各 routes ファイルの constraints host: が担い、設定値は config/initializers/baukis2.rb にある。
