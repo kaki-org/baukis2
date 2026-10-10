@@ -5,16 +5,15 @@ require 'rails_helper'
 
 RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
   describe 'オートローディング' do
-    it 'パックベースモデルが正しく読み込まれる' do
-      # Customer モデルが customer パックから正しく読み込まれることを確認
-      # プライバシー違反を避けるため、定数の存在確認のみ行う
-      expect(defined?(Customer)).to be_truthy
-    end
-
     it 'パック間の依存関係が正しく動作する' do
       # staff パックが customer パックに依存していることを確認
       staff_package = YAML.load_file('packs/staff/package.yml')
       expect(staff_package['dependencies']).to include('packs/customer')
+    end
+
+    it 'customer パックは shared 以外に依存しない' do
+      customer_package = YAML.load_file('packs/customer/package.yml')
+      expect(customer_package['dependencies']).to eq(['packs/shared'])
     end
 
     # packwerk-extensions (Packwerk::Privacy::Checker) と同じく先頭 5 行を同じ正規表現で判定する。
@@ -92,7 +91,7 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       root_package = YAML.load_file('package.yml')
       expect(root_package['enforce_dependencies']).to be true
       expect(root_package['enforce_privacy']).to be true
-      expect(root_package['dependencies']).to include('packs/customer')
+      expect(root_package['dependencies']).to eq(['packs/shared'])
     end
   end
 
