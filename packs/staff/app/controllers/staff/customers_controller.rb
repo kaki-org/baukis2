@@ -3,11 +3,11 @@
 module Staff
   class CustomersController < Staff::Base
     def index
-      @customers = StaffService.customer.order(:family_name_kana, :given_name_kana).page(params[:page])
+      @customers = Customer.order(:family_name_kana, :given_name_kana).page(params[:page])
     end
 
     def show
-      @customer = StaffService.customer.includes(
+      @customer = Customer.includes(
         :home_address, :work_address, :personal_phones,
         home_address: :phones, work_address: :phones
       ).find(params[:id])
@@ -18,7 +18,7 @@ module Staff
     end
 
     def edit
-      customer = StaffService.customer.includes(
+      customer = Customer.includes(
         :home_address, :work_address, :personal_phones,
         home_address: :phones, work_address: :phones
       ).find(params[:id])
@@ -38,7 +38,7 @@ module Staff
     end
 
     def update
-      customer = StaffService.customer.includes(
+      customer = Customer.includes(
         :home_address, :work_address, :personal_phones,
         home_address: :phones, work_address: :phones
       ).find(params[:id])
@@ -54,7 +54,7 @@ module Staff
     end
 
     def destroy
-      customer = StaffService.customer.includes(
+      customer = Customer.includes(
         :home_address, :work_address, :personal_phones, :phones,
         home_address: :phones, work_address: :phones
       ).find(params[:id])
