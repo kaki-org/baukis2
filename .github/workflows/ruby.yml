@@ -13,6 +13,8 @@ jobs:
   rspec_job:
     #ubuntu環境で動かします
     runs-on: ubuntu-24.04
+    # apt 等のハングで既定の 6 時間待たないよう 30 分でタイムアウトさせる
+    timeout-minutes: 30
 
     services:
       postgres:
