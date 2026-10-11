@@ -45,7 +45,11 @@ danger-packwerk の `packwerk.check` が layer / visibility 違反も検出す�
 | `owner` をトップレベルキーにする | packwerk validate が Unknown keys になる。code_ownership を require すれば通るが、本 Issue の範囲外 |
 | shared にも enforce_visibility を掛ける | 全パックから使う前提なので可視リストのメンテコストだけ増える |
 
+## AdminService の正当化（本 PR で実施）
+visibility で「AdminService 経由」を宣言するだけでは、admin → root の dependency / privacy todo が残る。
+ルートの `AdminService` に `# pack_public: true` を付け、admin の `dependencies` に `"."` を追加して todo を解消する。
+staff は既に `"."` に依存しているため、pack_public 化だけで privacy todo が消える。
+
 ## Non-goals
-- AdminService 由来の dependency / privacy todo の解消
 - code_ownership gem / CODEOWNERS 生成の導入
 - folder_privacy チェッカーの導入

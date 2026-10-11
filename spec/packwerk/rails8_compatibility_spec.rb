@@ -55,6 +55,10 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       shared_package = YAML.load_file('packs/shared/package.yml')
       expect(shared_package['dependencies']).to be_nil
     end
+
+    it 'ルートの AdminService が pack_public で宣言されている' do
+      expect(pack_public_files('app/services')).to contain_exactly('app/services/admin_service.rb')
+    end
   end
 
   describe 'ルーティング' do
@@ -100,6 +104,9 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       expect(root_package['visible_to']).to contain_exactly('packs/admin', 'packs/staff')
       expect(root_package['dependencies']).to eq(['packs/shared'])
       expect(root_package.dig('metadata', 'owner')).to eq('kaki-org')
+
+      admin_package = YAML.load_file('packs/admin/package.yml')
+      expect(admin_package['dependencies']).to contain_exactly('.', 'packs/shared')
     end
 
     it 'layer が product > domain > shared で設定されている' do

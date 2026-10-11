@@ -6,7 +6,7 @@
 他パック向けの公開定数はない。スタッフデータは `AdminService.staff_member` / `AdminService.staff_event` 経由でのみ扱う。
 
 ## 依存・可視性
-- 依存: `packs/shared` のみ（`AdminService` 参照は root への既存 todo）
+- 依存: `.`（公開された `AdminService`）、`packs/shared`
 - `enforce_visibility: true`、`visible_to: []`
 
 ## Owner
