@@ -1,7 +1,15 @@
 # package.yml
 enforce_dependencies: true
 enforce_privacy: true
+enforce_layers: true
+layer: product
+# admin は StaffMember 等を直接参照せず、root の AdminService 経由でのみ触れる
+enforce_visibility: true
+visible_to: []
 dependencies:
   - "."
   - "packs/customer"
   - "packs/shared"
+
+metadata:
+  owner: kaki-org

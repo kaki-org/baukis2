@@ -84,6 +84,9 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
         package_config = YAML.load_file(package_file)
         expect(package_config['enforce_dependencies']).to be true
         expect(package_config['enforce_privacy']).to be true
+        expect(package_config['enforce_layers']).to be true
+        expect(package_config.dig('metadata', 'owner')).to eq('kaki-org')
+        expect(File.exist?(File.join(pack_path, 'README.md'))).to be true
       end
     end
 
@@ -91,7 +94,37 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       root_package = YAML.load_file('package.yml')
       expect(root_package['enforce_dependencies']).to be true
       expect(root_package['enforce_privacy']).to be true
+      expect(root_package['enforce_layers']).to be true
+      expect(root_package['layer']).to eq('product')
+      expect(root_package['enforce_visibility']).to be true
+      expect(root_package['visible_to']).to contain_exactly('packs/admin', 'packs/staff')
       expect(root_package['dependencies']).to eq(['packs/shared'])
+      expect(root_package.dig('metadata', 'owner')).to eq('kaki-org')
+    end
+
+    it 'layer が product > domain > shared で設定されている' do
+      expect(YAML.load_file('packwerk.yml')['layers']).to eq(%w[product domain shared])
+      expect(YAML.load_file('packs/staff/package.yml')['layer']).to eq('product')
+      expect(YAML.load_file('packs/admin/package.yml')['layer']).to eq('product')
+      expect(YAML.load_file('packs/customer/package.yml')['layer']).to eq('domain')
+      expect(YAML.load_file('packs/shared/package.yml')['layer']).to eq('shared')
+    end
+
+    it 'visibility が AdminService 経由の境界を宣言している' do
+      staff = YAML.load_file('packs/staff/package.yml')
+      expect(staff['enforce_visibility']).to be true
+      expect(staff['visible_to']).to eq([])
+
+      customer = YAML.load_file('packs/customer/package.yml')
+      expect(customer['enforce_visibility']).to be true
+      expect(customer['visible_to']).to eq(['packs/staff'])
+
+      admin = YAML.load_file('packs/admin/package.yml')
+      expect(admin['enforce_visibility']).to be true
+      expect(admin['visible_to']).to eq([])
+
+      shared = YAML.load_file('packs/shared/package.yml')
+      expect(shared['enforce_visibility']).to be_nil
     end
   end
 
