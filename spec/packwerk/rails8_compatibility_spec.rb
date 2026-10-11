@@ -80,12 +80,9 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
   end
 
   describe 'パック構造' do
-    it '各パックが適切な package.yml を持つ' do
+    it '各パックが enforce と owner と README を持つ' do
       %w[packs/admin packs/staff packs/customer packs/shared].each do |pack_path|
-        package_file = File.join(pack_path, 'package.yml')
-        expect(File.exist?(package_file)).to be true
-
-        package_config = YAML.load_file(package_file)
+        package_config = YAML.load_file(File.join(pack_path, 'package.yml'))
         expect(package_config['enforce_dependencies']).to be true
         expect(package_config['enforce_privacy']).to be true
         expect(package_config['enforce_layers']).to be true
@@ -94,15 +91,19 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       end
     end
 
-    it 'ルートパッケージが適切に設定されている' do
+    it 'ルートパッケージが layer / visibility / 依存を持つ' do
       root_package = YAML.load_file('package.yml')
-      expect(root_package['enforce_dependencies']).to be true
-      expect(root_package['enforce_privacy']).to be true
       expect(root_package['enforce_layers']).to be true
       expect(root_package['layer']).to eq('product')
       expect(root_package['enforce_visibility']).to be true
       expect(root_package['visible_to']).to contain_exactly('packs/admin', 'packs/staff')
       expect(root_package['dependencies']).to eq(['packs/shared'])
+    end
+
+    it 'ルートパッケージが owner を持ち admin は root に依存する' do
+      root_package = YAML.load_file('package.yml')
+      expect(root_package['enforce_dependencies']).to be true
+      expect(root_package['enforce_privacy']).to be true
       expect(root_package.dig('metadata', 'owner')).to eq('kaki-org')
 
       admin_package = YAML.load_file('packs/admin/package.yml')
@@ -117,19 +118,18 @@ RSpec.describe 'Rails 8 での Packwerk 互換性', type: :system do
       expect(YAML.load_file('packs/shared/package.yml')['layer']).to eq('shared')
     end
 
-    it 'visibility が AdminService 経由の境界を宣言している' do
+    it 'staff / admin は非公開で customer は staff にだけ見える' do
       staff = YAML.load_file('packs/staff/package.yml')
-      expect(staff['enforce_visibility']).to be true
-      expect(staff['visible_to']).to eq([])
-
-      customer = YAML.load_file('packs/customer/package.yml')
-      expect(customer['enforce_visibility']).to be true
-      expect(customer['visible_to']).to eq(['packs/staff'])
+      expect(staff.values_at('enforce_visibility', 'visible_to')).to eq([true, []])
 
       admin = YAML.load_file('packs/admin/package.yml')
-      expect(admin['enforce_visibility']).to be true
-      expect(admin['visible_to']).to eq([])
+      expect(admin.values_at('enforce_visibility', 'visible_to')).to eq([true, []])
 
+      customer = YAML.load_file('packs/customer/package.yml')
+      expect(customer.values_at('enforce_visibility', 'visible_to')).to eq([true, ['packs/staff']])
+    end
+
+    it 'shared は visibility を掛けない' do
       shared = YAML.load_file('packs/shared/package.yml')
       expect(shared['enforce_visibility']).to be_nil
     end
