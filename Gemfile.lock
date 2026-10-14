@@ -272,7 +272,8 @@ GEM
       prism (~> 1.5)
     msgpack (1.8.5)
     nap (1.1.0)
-    net-http (0.9.1)
+    net-http (0.10.0)
+      net-protocol (>= 0.3.0)
       uri (>= 0.11.1)
     net-imap (0.6.7)
       date
@@ -529,7 +530,7 @@ GEM
     unicode-display_width (3.3.0)
       unicode-emoji (~> 4.3)
     unicode-emoji (4.3.0)
-    uri (1.1.1)
+    uri (1.1.2)
     useragent (0.16.11)
     valid_email2 (7.1.0)
       activemodel (>= 6.0)
