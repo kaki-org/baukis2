@@ -166,7 +166,7 @@ GEM
       sorbet-runtime
     danger-plugin-api (1.0.0)
       danger (> 2.0)
-    date (3.5.1)
+    date (3.6.0)
     date_validator (0.12.0)
       activemodel (>= 3)
       activesupport (>= 3)
