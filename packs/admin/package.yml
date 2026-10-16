@@ -1,5 +1,14 @@
 # package.yml
 enforce_dependencies: true
 enforce_privacy: true
+enforce_layers: true
+layer: product
+# 他パックから参照されない product パック
+enforce_visibility: true
+visible_to: []
 dependencies:
+  - "."
   - "packs/shared"
+
+metadata:
+  owner: kaki-org
