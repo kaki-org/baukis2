@@ -20,7 +20,7 @@ packs/staff・packs/admin・packs/customer・packs/shared は packwerk パック
 - domain: packs/customer
 - shared: packs/shared
 
-visibility は「どのパックから定数参照してよいか」を宣言する。staff は `visible_to: []`（admin は AdminService 経由でのみ触れる）。customer は `visible_to: [packs/staff]`。root は `visible_to: [packs/admin, packs/staff]`（AdminService）。admin は `visible_to: []`。shared は基盤なので enforce_visibility を掛けない。新規の layer / visibility 違反は CI (danger-packwerk) で検出される。
+visibility は「どのパックから定数参照してよいか」を宣言する。staff は `visible_to: []`（admin は AdminService 経由でのみ触れる）。customer は `visible_to: [packs/staff]`。root は `visible_to: [packs/admin, packs/staff]`（AdminService）。admin は `visible_to: []`。shared は基盤なので enforce_visibility を掛けない。新規の layer / visibility 違反は CI の packwerk ジョブ (bin/packwerk check) で検出される (danger-packwerk の行コメントは dependency / privacy だけ)。
 
 ## owner / README
 各パックの `package.yml` に `metadata.owner` を置く（トップレベル `owner` は packwerk validate の許可キー外）。パックの説明は各 `packs/*/README.md` に書く。

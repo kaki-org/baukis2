@@ -15,7 +15,7 @@ Ruby と gem は Docker コンテナ (web サービス) 内にのみ存在する
 - 初期セットアップ: docker compose down --volumes && docker compose up -d db && docker compose run --rm web ./bin/setup --skip-server (既存 DB を消す)
 
 ## packwerk 境界
-全パックが enforce_dependencies / enforce_privacy / enforce_layers: true。加えて visibility を宣言したパックは enforce_visibility: true。既存違反は各パックの package_todo.yml に猶予登録されているだけで、新規の dependency / privacy / layer / visibility 違反は CI (danger-packwerk) で検出される。新規コードで package_todo.yml に頼らない。パック間参照の正しい方法は packs/CLAUDE.md を参照。
+全パックが enforce_dependencies / enforce_privacy / enforce_layers: true。加えて visibility を宣言したパックは enforce_visibility: true。新規の dependency / privacy / layer / visibility 違反は CI の packwerk ジョブ (ruby.yml の bin/packwerk check) でビルドが落ち、package_todo.yml への違反追加は Danger が fail にする。違反は猶予登録せずに直す。パック間参照の正しい方法は packs/CLAUDE.md を参照。
 
 ## 技術スタック
 Ruby 4.0.0 / Rails 8.1 / PostgreSQL 18 / RSpec + Capybara (Playwright) / webpack + pnpm (Shakapacker 不使用) / Stimulus。i18n デフォルトは ja、タイムゾーンは Tokyo。
