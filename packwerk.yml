@@ -22,5 +22,12 @@
 # Where you want the cache to be stored (default below)
 # cache_directory: 'tmp/cache/packwerk'
 
+# Higher layers may depend on equal or lower layers only.
+# product (staff, admin, root) > domain (customer) > shared
+layers:
+  - product
+  - domain
+  - shared
+
 require:
   - packwerk-extensions

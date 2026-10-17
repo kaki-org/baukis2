@@ -1,5 +1,14 @@
 # package.yml
 enforce_dependencies: true
 enforce_privacy: true
+enforce_layers: true
+layer: domain
+# ドメインモデルは staff からのみ参照する（リーフ）
+enforce_visibility: true
+visible_to:
+  - "packs/staff"
 dependencies:
   - "packs/shared"
+
+metadata:
+  owner: kaki-org
