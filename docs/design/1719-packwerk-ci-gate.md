@@ -2,7 +2,8 @@
 
 ## 結論
 - `ruby.yml` に独立ジョブ `packwerk` を追加し、`bin/packwerk validate` → `bin/packwerk check` を実行する。新規違反のゲートはこのジョブ
-- Danger の `packwerk.check` / `package_todo_yml_changes.check` は既定のまま行コメントだけ担う（`fail_build` 既定 false）
+- Danger の `packwerk.check` は既定のまま行コメントだけ担う（`fail_build` 既定 false）。`package_todo_yml_changes.check` の行コメントはラチェットと重複するので外す
+- danger-packwerk は package.yml の `metadata.owner` から code_ownership のチームを引くので、`config/teams/kaki-org.yml` を置く（未定義だと違反がある PR で Danger が例外で落ちていた。#1720 から潜在）
 - `package_todo.yml` に違反を追加する差分は Danger が `failure` にする（ラチェット。削除は許可）
 
 ## 背景
@@ -15,6 +16,7 @@ danger-packwerk の `packwerk.check` は既定 `fail_build: false` でコメン�
 | Danger の `fail_build: true` をゲートにする | danger.yml は master 向け PR を除外し、変更ファイルしか見ない。ゲートジョブと二重に失敗する |
 | Danger の `violation_types` に layer / visibility を追加 | 既定 formatter が dependency 以外を privacy として案内するため誤誘導になる。ゲートジョブの packwerk 出力が正確 |
 | ラチェットを package_todo.yml の行数比較スクリプトで書く | base との差分処理を自作することになる。danger-packwerk の `get_violation_diff` が違反単位の差分を返す |
+| チームに slack.room_for_humans を設定して `package_todo_yml_changes.check` を残す | Slack を運用しておらず、架空のチャンネルになる。コメント内容もラチェットの fail メッセージと重複する |
 | package_todo.yml の存在自体を禁止 | 現状 0 件なので成立するが、違反を減らす途中の差分も拒否してしまう |
 
 ## 検証
