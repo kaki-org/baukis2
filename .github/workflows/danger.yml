@@ -30,4 +30,5 @@ jobs:
       - name: run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
+        # 既定では fail しても exit 0 で danger/danger の commit status だけ落ちるので、ジョブも落とす
+        run: bundle exec danger --fail-on-errors=true
