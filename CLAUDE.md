@@ -18,4 +18,4 @@ Ruby と gem は Docker コンテナ (web サービス) 内にのみ存在する
 全パックが enforce_dependencies / enforce_privacy / enforce_layers: true。加えて visibility を宣言したパックは enforce_visibility: true。既存違反は各パックの package_todo.yml に猶予登録されているだけで、新規の dependency / privacy / layer / visibility 違反は CI (danger-packwerk) で検出される。新規コードで package_todo.yml に頼らない。パック間参照の正しい方法は packs/CLAUDE.md を参照。
 
 ## 技術スタック
-Ruby 4.0.0 / Rails 8.1 / PostgreSQL 18 / RSpec + Capybara (Playwright) / webpack + pnpm (Shakapacker 不使用) / Stimulus。i18n デフォルトは ja、タイムゾーンは Tokyo。
+Ruby 4.0.8 / Rails 8.1 / PostgreSQL 18 / RSpec + Capybara (Playwright) / webpack + pnpm (Shakapacker 不使用) / Stimulus。i18n デフォルトは ja、タイムゾーンは Tokyo。
