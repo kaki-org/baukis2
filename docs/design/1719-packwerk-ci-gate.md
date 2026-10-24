@@ -5,6 +5,7 @@
 - Danger の `packwerk.check` は既定のまま行コメントだけ担う（`fail_build` 既定 false）。`package_todo_yml_changes.check` の行コメントはラチェットと重複するので外す
 - danger-packwerk は package.yml の `metadata.owner` から code_ownership のチームを引くので、`config/teams/kaki-org.yml` を置く（未定義だと違反がある PR で Danger が例外で落ちていた。#1720 から潜在）
 - `package_todo.yml` に違反を追加する差分は Danger が `failure` にする（ラチェット。削除は許可）
+- danger.yml に `--fail-on-errors=true` を付ける。既定では `failure` を出しても exit 0 で、`danger/danger` の commit status だけが落ちていた
 
 ## 背景
 danger-packwerk の `packwerk.check` は既定 `fail_build: false` でコメントのみ。既定の `violation_types` は dependency / privacy だけで、#1720 の layer / visibility 違反は対象外だった。`bin/packwerk update-todo` で猶予登録すれば `packwerk check` 自体は通る。
@@ -22,3 +23,4 @@ danger-packwerk の `packwerk.check` は既定 `fail_build: false` でコメン�
 ## 検証
 - probe ファイル (customer → StaffMember 参照) で `bin/packwerk check` が 4 件 (dependency / privacy / layer / visibility) を検出し exit 1
 - `update-todo` 後は `packwerk check` が exit 0 になり、ラチェット (`danger dry_run`) が 4 件を列挙して exit 1。逆方向 (削除) の差分では exit 0
+- #1794 の probe コミットで CI を確認: 違反のみなら `packwerk` ジョブが fail・`danger` は行コメントを付けて pass、`update-todo` 後は `packwerk` が pass・`danger` がラチェットで fail
