@@ -18,6 +18,9 @@ permissions:
 jobs:
   danger:
     runs-on: ubuntu-latest
+    # erb-lint と同じ only-test キャッシュを共有する（default + test。packwerk / danger-packwerk はどちらもここに入る）
+    env:
+      BUNDLE_ONLY: test
 
     steps:
       - uses: actions/checkout@v7
