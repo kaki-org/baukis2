@@ -27,8 +27,18 @@ RUN apk --no-cache add \
     yaml-dev
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
+# alpine の nodejs パッケージには corepack が含まれないため npm で入れる。
+# pnpm のバージョンは package.json の packageManager フィールドに従わせる
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN npm install -g corepack \
+    && corepack enable pnpm
+
 ENV APP_PATH /work/app
 WORKDIR $APP_PATH
+
+# packageManager で指定された pnpm をイメージ内のキャッシュに取得しておく
+COPY package.json $APP_PATH
+RUN corepack install
 
 # Gemfileを先にコピーしてbundle installを実行
 COPY Gemfile $APP_PATH
