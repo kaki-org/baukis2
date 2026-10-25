@@ -12,7 +12,7 @@ Baukis2 は、書籍『Ruby on Rails 6 実践ガイド』をベースに、最�
 - **アーキテクチャ**: Packwerk によるモジュラーモノリス（`/packs` 下に各機能を分離）
 
 ## 2. 技術スタック
-- **Language/Framework**: Ruby 4.0.0, Rails 8.1.0
+- **Language/Framework**: Ruby 4.0.8, Rails 8.1.0
 - **Database**: PostgreSQL 18.3
 - **Frontend**: Stimulus, Turbo Rails, Webpack
 - **Infrastructure**: Docker Compose
