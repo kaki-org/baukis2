@@ -1,0 +1,6 @@
+# rhysd/actionlint の latest はまだ ubuntu-26.04 を知らない (rhysd/actionlint#682)。
+# GitHub-hosted としては既に使えるので、認識済みラベルとして登録する。
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
+    - ubuntu-26.04-arm
