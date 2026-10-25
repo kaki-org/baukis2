@@ -1,15 +1,44 @@
 name: Build
 
 #プルリクエスト作成時に実行(他にもpush時など設定できます)
+# *.md / .steering だけの PR では重いジョブを走らせない (#1757)
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+    paths-ignore:
+      - '**/*.md'
+      - '.steering/**'
+      - '.kiro/steering/**'
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
+  # Danger はコメントするだけでビルドを落とさないので、packwerk の違反はこのジョブで落とす
+  # DB が要らないので rspec_job の準備を待たずに並列で回す
+  packwerk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: checkout
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: actions/checkout@v7
+      - name: checkout pr
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Ruby version
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .tool-versions
+          bundler-cache: true
+      - name: Validate packwerk config
+        run: bin/packwerk validate
+      - name: Check packwerk violations
+        run: bin/packwerk check
+
   rspec_job:
     #ubuntu環境で動かします
     runs-on: ubuntu-26.04
@@ -89,12 +118,14 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
 
+      # jsbundling-rails が assets:precompile の中で javascript:build (= pnpm build) を
+      # 実行するため、ここで pnpm build を別途走らせると webpack が二重になる
       - name: Precompile assets
-        run: |
-          pnpm build
-          bundle exec rake assets:precompile
+        run: bundle exec rake assets:precompile
         env:
           RAILS_ENV: test
+          # 直前の pnpm install 済みなので、javascript:build の install 前提タスクを省略
+          SKIP_YARN_INSTALL: "1"
 
       - name: Run RSpec
         run: bundle exec rspec

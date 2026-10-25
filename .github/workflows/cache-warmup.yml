@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # '' は ruby.yml / danger.yml、test は erb-lint.yml、development は rubocop.yml 用
+        # '' は ruby.yml、test は erb-lint.yml / danger.yml、development は rubocop.yml 用
         bundle-only: [ '', test, development ]
     steps:
       - uses: actions/checkout@v7
