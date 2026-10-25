@@ -113,12 +113,14 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
 
+      # jsbundling-rails が assets:precompile の中で javascript:build (= pnpm build) を
+      # 実行するため、ここで pnpm build を別途走らせると webpack が二重になる
       - name: Precompile assets
-        run: |
-          pnpm build
-          bundle exec rake assets:precompile
+        run: bundle exec rake assets:precompile
         env:
           RAILS_ENV: test
+          # 直前の pnpm install 済みなので、javascript:build の install 前提タスクを省略
+          SKIP_YARN_INSTALL: "1"
 
       - name: Run RSpec
         run: bundle exec rspec
