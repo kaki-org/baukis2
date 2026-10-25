@@ -1,9 +1,14 @@
 name: Build
 
 #プルリクエスト作成時に実行(他にもpush時など設定できます)
+# *.md / .steering だけの PR では重いジョブを走らせない (#1757)
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+    paths-ignore:
+      - '**/*.md'
+      - '.steering/**'
+      - '.kiro/steering/**'
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}

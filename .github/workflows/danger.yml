@@ -1,9 +1,14 @@
 name: danger
 
+# *.md / .steering だけの PR では重いジョブを走らせない (#1757)
 on:
   pull_request:
     types: [ opened, reopened, synchronize ]
     branches-ignore: [ master ]
+    paths-ignore:
+      - '**/*.md'
+      - '.steering/**'
+      - '.kiro/steering/**'
 
 concurrency:
   group: baukis2-danger-${{ github.event.pull_request.head.ref }}
