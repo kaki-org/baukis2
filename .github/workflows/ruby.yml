@@ -10,6 +10,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Danger はコメントするだけでビルドを落とさないので、packwerk の違反はこのジョブで落とす
+  # DB が要らないので rspec_job の準備を待たずに並列で回す
+  packwerk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: checkout
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: actions/checkout@v7
+      - name: checkout pr
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Ruby version
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .tool-versions
+          bundler-cache: true
+      - name: Validate packwerk config
+        run: bin/packwerk validate
+      - name: Check packwerk violations
+        run: bin/packwerk check
+
   rspec_job:
     #ubuntu環境で動かします
     runs-on: ubuntu-24.04
