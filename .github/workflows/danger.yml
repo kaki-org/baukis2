@@ -1,9 +1,14 @@
 name: danger
 
+# *.md / .steering だけの PR では重いジョブを走らせない (#1757)
 on:
   pull_request:
     types: [ opened, reopened, synchronize ]
     branches-ignore: [ master ]
+    paths-ignore:
+      - '**/*.md'
+      - '.steering/**'
+      - '.kiro/steering/**'
 
 concurrency:
   group: baukis2-danger-${{ github.event.pull_request.head.ref }}
@@ -18,6 +23,9 @@ permissions:
 jobs:
   danger:
     runs-on: ubuntu-latest
+    # erb-lint と同じ only-test キャッシュを共有する（default + test。packwerk / danger-packwerk はどちらもここに入る）
+    env:
+      BUNDLE_ONLY: test
 
     steps:
       - uses: actions/checkout@v7
@@ -30,4 +38,5 @@ jobs:
       - name: run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
+        # 既定では fail しても exit 0 で danger/danger の commit status だけ落ちるので、ジョブも落とす
+        run: bundle exec danger --fail-on-errors=true
