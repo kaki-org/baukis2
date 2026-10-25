@@ -1,6 +1,12 @@
 name: erb-lint
 
-on: pull_request
+# *.md / .steering だけの PR では重いジョブを走らせない (#1757)
+on:
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - '.steering/**'
+      - '.kiro/steering/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
