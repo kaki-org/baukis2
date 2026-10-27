@@ -18,7 +18,7 @@ jobs:
   # Danger はコメントするだけでビルドを落とさないので、packwerk の違反はこのジョブで落とす
   # DB が要らないので rspec_job の準備を待たずに並列で回す
   packwerk:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     steps:
       - name: checkout
