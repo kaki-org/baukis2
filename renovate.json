@@ -47,7 +47,8 @@
         "/^toshimaru/backlog-pr-link-action$/",
         "/^bootsnap$/",
         "/^nokogiri$/",
-        "/^bcrypt$/"
+        "/^bcrypt$/",
+        "/^simplecov/"
       ]
     }
   ]
