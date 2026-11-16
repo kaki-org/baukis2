@@ -9,6 +9,9 @@
   "separateMajorMinor": false,
   "labels": ["dependencies"],
   "minimumReleaseAge": "3 days",
+  "bundler": {
+    "lockFileMaintenance": { "enabled": true }
+  },
   "packageRules": [
     {
       "matchManagers": ["bundler"],
