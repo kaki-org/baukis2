@@ -15,6 +15,11 @@
   "packageRules": [
     {
       "matchManagers": ["bundler"],
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "minimumReleaseAge": null
+    },
+    {
+      "matchManagers": ["bundler"],
       "assignees": ["kakikubo"]
     },
     {
