@@ -1,0 +1,101 @@
+name: Check all boxes on release PR 1827
+
+on:
+  push:
+    branches:
+      - cursor/check-release-boxes-f070
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  check-boxes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check all boxes on PR 1827
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+            '- [x] #1825 @renovate[bot]',
+            '- [x] #1826 @kakikubo',
+            '- [x] #1828 @kakikubo',
+            '- [x] #1830 @renovate[bot]',
+            '- [x] #1831 @renovate[bot]',
+            '- [x] #1834 @renovate[bot]',
+            '- [x] #1835 @renovate[bot]',
+            '- [x] #1837 @renovate[bot]',
+            '- [x] #1839 @dependabot[bot]',
+            '- [x] #1840 @dependabot[bot]',
+            '- [x] #1841 @dependabot[bot]',
+            '- [x] #1842 @dependabot[bot]',
+            '- [x] #1843 @dependabot[bot]',
+            '- [x] #1844 @dependabot[bot]',
+            '- [x] #1845 @dependabot[bot]',
+            '- [x] #1846 @dependabot[bot]',
+            '- [x] #1847 @dependabot[bot]',
+            '- [x] #1848 @renovate[bot]',
+            '- [x] #1849 @renovate[bot]',
+            '- [x] #1850 @dependabot[bot]',
+            '- [x] #1851 @dependabot[bot]',
+            '- [x] #1852 @dependabot[bot]',
+            '- [x] #1853 @dependabot[bot]',
+            '- [x] #1854 @dependabot[bot]',
+            '- [x] #1855 @kakikubo',
+            '- [x] #1856 @renovate[bot]',
+            '- [x] #1858 @renovate[bot]',
+            '- [x] #1859 @renovate[bot]',
+            '- [x] #1860 @renovate[bot]',
+            '- [x] #1861 @renovate[bot]',
+            '- [x] #1862 @renovate[bot]',
+            '- [x] #1863 @dependabot[bot]',
+            '- [x] #1864 @dependabot[bot]',
+            '- [x] #1865 @dependabot[bot]',
+            '- [x] #1866 @dependabot[bot]',
+            '- [x] #1867 @dependabot[bot]',
+            '- [x] #1868 @dependabot[bot]',
+            '- [x] #1869 @dependabot[bot]',
+            '- [x] #1870 @dependabot[bot]',
+            '- [x] #1871 @dependabot[bot]',
+            '- [x] #1872 @dependabot[bot]',
+            '- [x] #1873 @dependabot[bot]',
+            '- [x] #1874 @dependabot[bot]',
+            '- [x] #1875 @dependabot[bot]',
+            '- [x] #1876 @dependabot[bot]',
+            '- [x] #1877 @dependabot[bot]',
+            '- [x] #1878 @dependabot[bot]',
+            '- [x] #1879 @renovate[bot]',
+            '- [x] #1880 @dependabot[bot]',
+            '- [x] #1881 @renovate[bot]',
+            '- [x] #1882 @renovate[bot]',
+            '- [x] #1883 @renovate[bot]',
+            '- [x] #1884 @kakikubo',
+            '- [x] #1885 @renovate[bot]',
+            '- [x] #1886 @kakikubo',
+            '- [x] #1887 @dependabot[bot]',
+            '- [x] #1888 @dependabot[bot]',
+            '- [x] #1889 @dependabot[bot]',
+            '- [x] #1890 @dependabot[bot]',
+            '- [x] #1891 @dependabot[bot]',
+            '- [x] #1892 @renovate[bot]',
+            '- [x] #1893 @kakikubo',
+            '- [x] #1895 @renovate[bot]',
+            '- [x] #1896 @kakikubo',
+            '- [x] #1897 @renovate[bot]',
+            '- [x] #1899 @renovate[bot]',
+            '- [x] #1900 @renovate[bot]',
+            '- [x] #1901 @renovate[bot]',
+            '- [x] #1902 @renovate[bot]',
+            '- [x] #1904 @renovate[bot]'
+            ].join('\n');
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: 1827,
+              body,
+            });
+
+            core.info('Updated PR #1827 body: all checklist items checked');
