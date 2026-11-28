@@ -1,63 +1,91 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "ignorePaths": [],
   "timezone": "Asia/Tokyo",
-  "schedule": ["before 9am"],
+  "schedule": [
+    "before 9am on monday"
+  ],
   "automerge": false,
   "automergeStrategy": "merge-commit",
   "separateMajorMinor": false,
-  "labels": ["dependencies"],
+  "labels": [
+    "dependencies"
+  ],
+  "assignees": [
+    "kakikubo"
+  ],
   "minimumReleaseAge": "3 days",
-  "bundler": {
-    "lockFileMaintenance": { "enabled": true }
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 9am on monday"
+    ],
+    "automerge": true,
+    "platformAutomerge": true,
+    "minimumReleaseAge": null
   },
   "packageRules": [
     {
-      "matchManagers": ["bundler"],
-      "matchUpdateTypes": ["lockFileMaintenance"],
-      "minimumReleaseAge": null
+      "description": "パッチ・マイナー更新は原則まとめて週1回（手動レビュー）。以降のルールで上書きする",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "non-major dependencies",
+      "groupSlug": "non-major"
     },
     {
-      "matchManagers": ["bundler"],
-      "assignees": ["kakikubo"]
-    },
-    {
-      "matchManagers": ["bun"],
-      "assignees": ["kakikubo"]
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "assignees": ["kakikubo"]
-    },
-    {
-      "matchUpdateTypes": ["minor", "patch"],
+      "description": "ツール類のパッチ・マイナーは別グループにまとめて自動マージ",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "safe non-major dependencies",
+      "groupSlug": "safe-non-major",
       "automerge": true,
       "platformAutomerge": true,
       "matchPackageNames": [
-        "/^@types/",
-        "/^rubocop*/",
-        "/^rspec*/",
-        "/^sass*/",
-        "/^@nuxtjs/eslint/",
-        "/^crawler$/",
-        "/^eslint/",
-        "/^jest/",
-        "/^ts-jest$/",
-        "/^playwright/",
-        "/^@playwright//",
+        "/^rubocop/",
+        "/^rspec/",
+        "/^simplecov/",
+        "/^sass/",
+        "css-loader",
+        "mini-css-extract-plugin",
         "/^webpack/",
-        "/^pnpm$/",
-        "/^http-server$/",
-        "/^actions/checkout$/",
-        "/^release-drafter/release-drafter$/",
-        "/^ruby/setup-ruby$/",
-        "/^toshimaru/backlog-pr-link-action$/",
-        "/^bootsnap$/",
-        "/^nokogiri$/",
-        "/^bcrypt$/",
-        "/^simplecov/"
+        "@playwright/test",
+        "bootsnap",
+        "nokogiri",
+        "bcrypt",
+        "erb_lint",
+        "factory_bot_rails",
+        "actions/checkout",
+        "actions/cache",
+        "actions/setup-node",
+        "pnpm/action-setup",
+        "ruby/setup-ruby",
+        "release-drafter/release-drafter"
       ]
+    },
+    {
+      "description": "pnpm と Node.js はリリースが多いので月1回、まとめて自動マージ",
+      "matchPackageNames": [
+        "pnpm",
+        "node"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "pnpm and node",
+      "groupSlug": "pnpm-node",
+      "schedule": [
+        "before 9am on the first day of the month"
+      ],
+      "automerge": true,
+      "platformAutomerge": true
     }
   ]
 }
